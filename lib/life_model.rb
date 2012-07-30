@@ -32,7 +32,7 @@ class LifeModel
   end
   
   def to_s
-    "LifeModel, #{row_count} rows, #{column_count} columns"
+    super.to_s + ": #{row_count} rows, #{column_count} columns"
   end
   
 end

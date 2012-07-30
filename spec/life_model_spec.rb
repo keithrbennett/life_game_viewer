@@ -26,7 +26,6 @@ describe LifeModel do
     any_alive = false
     puts subject
     (0...subject.row_count).each do |rownum|
-      puts "rownum = #{rownum}"
       (0...subject.column_count).each do |colnum|
         if subject.alive?(rownum, colnum)
           any_alive = true
