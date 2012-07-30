@@ -1,0 +1,33 @@
+
+Model: LifeModel
+
+public
+  row_count
+  column_count
+  alive?(x, y)
+  alive=(x, y, alive)
+-----
+
+Model: Calculator
+  
+public
+  should_live?(x,y)
+
+private
+  should_continue_to_live?(x,y)
+  should_spring_to_life?(x,y)
+  surrounding_cells - an array of x,y coordinates
+  live_surrounding_cell_count
+
+----
+
+
+View: LifeVisualizer
+
+takes a data model and expects to be able to call:
+  row_count, column_count, alive?(x, y)
+
+public
+  visualize
+
+ 
