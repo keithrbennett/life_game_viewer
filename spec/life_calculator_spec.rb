@@ -96,10 +96,22 @@ describe LifeCalculator do
   # ============================================================
   # Next Generation Model
   # ============================================================
-  it "should return a next generation model" do
+  it "should return a next generation model different from the old" do
     model = LifeModel.create_from_string("--*\n**-")
     next_gen_model = subject.next_generation(model)
-    next_gen_model.should be_a LifeModel
+    next_gen_model.should_not == model
+    #puts
+    #puts LifeVisualizer.new.visualize(model)
+    #puts LifeVisualizer.new.visualize(next_gen_model)
+    #puts
+  end
+
+
+  it "should return a correct next generation model" do
+    model = LifeModel.create_from_string("--*\n**-")
+    next_gen_model = subject.next_generation(model)
+    expected_next_gen_model = LifeModel.create_from_string("-*-\n-*-")
+    next_gen_model.should == expected_next_gen_model
   end
 
 end
