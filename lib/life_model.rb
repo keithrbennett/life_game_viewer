@@ -30,12 +30,12 @@ class LifeModel
     @data[0].size
   end
   
-  def alive?(x, y)
-    @data[x][y]
+  def alive?(row, col)
+    @data[row][col]
   end
   
-  def set_living_state(x, y, alive)
-    @data[x][y] = alive
+  def set_living_state(row, col, alive)
+    @data[row][col] = alive
   end
 
   def set_living_states(array_of_row_col_tuples, alive)
@@ -55,6 +55,13 @@ class LifeModel
   
   def to_s
     super.to_s + ": #{row_count} rows, #{column_count} columns"
+  end
+
+  def ==(other)
+    other.is_a?(LifeModel)             &&
+    other.row_count == row_count       &&
+    other.column_count == column_count &&
+    other.data == data
   end
   
 end

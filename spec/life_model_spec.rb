@@ -62,4 +62,30 @@ describe LifeModel do
     model.alive?(1, 1).should be_true
   end
 
+
+  it "should be considered == correctly" do
+    model_string = "*****\n-----\n*-*-*"
+    model1 = LifeModel.create_from_string(model_string)
+    model2 = LifeModel.create_from_string(model_string)
+    model1.should == model2
+  end
+
+  it "should be considered != when row count is different" do
+    model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
+    model2 = LifeModel.create_from_string("*****\n-----")
+    model1.should_not == model2
+  end
+
+  it "should be considered != when column count is different" do
+    model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
+    model2 = LifeModel.create_from_string("****\n----\n*-*-")
+    model1.should_not == model2
+  end
+
+  it "should be considered != when an alive flag is different" do
+    model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
+    model2 = LifeModel.create_from_string("*****\n--*--\n*-*-*")
+    model1.should_not == model2
+  end
+
 end
