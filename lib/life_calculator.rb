@@ -72,4 +72,15 @@ class LifeCalculator
     num_living_neighbors(model, row, col) == 3
   end
 
+    # Returns a new model with the next generation's data.
+  def next_generation(old_model)
+    new_model = LifeModel.new(old_model.row_count, old_model.column_count)
+    (0...old_model.row_count).each do |row|
+      (0...old_model.column_count).each do |col|
+        new_model.set_living_state(row, col, should_live(old_model, row, col))
+      end
+    end
+    new_model
+  end
+
 end

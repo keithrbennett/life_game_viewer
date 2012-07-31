@@ -77,5 +77,29 @@ describe LifeCalculator do
   # Live Cell Calculations
   # ============================================================
 
+  it "should calculate live cell false correctly" do
+    model = LifeModel.create_from_string("--*\n**-")
+    subject.live_cell_should_continue_to_live(model, 1, 0).should be_false
+    subject.should_live(model, 1, 0).should be_false
+  end
+
+  #   - - *
+  #   * * -
+
+  it "should calculate live cell true correctly" do
+    model = LifeModel.create_from_string("--*\n**-")
+    subject.live_cell_should_continue_to_live(model, 1, 1).should be_true
+    subject.should_live(model, 1, 1).should be_true
+  end
+
+
+  # ============================================================
+  # Next Generation Model
+  # ============================================================
+  it "should return a next generation model" do
+    model = LifeModel.create_from_string("--*\n**-")
+    next_gen_model = subject.next_generation(model)
+    next_gen_model.should be_a LifeModel
+  end
 
 end
