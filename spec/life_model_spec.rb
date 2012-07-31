@@ -24,7 +24,6 @@ describe LifeModel do
 
   it "should have all rows default to not alive" do
     any_alive = false
-    puts subject
     (0...subject.row_count).each do |rownum|
       (0...subject.column_count).each do |colnum|
         if subject.alive?(rownum, colnum)
@@ -39,7 +38,28 @@ describe LifeModel do
     subject.set_living_state(0, 0, true)
     subject.alive?(0, 0).should be_true
   end
-  
-    
+
+  it "should set living state correctly using set_living_states" do
+    model = LifeModel.new(3, 3)
+    cells_to_set_alive = [[0,0], [1,1], [2,2]]
+    model.set_living_states(cells_to_set_alive, true)
+    cells_to_set_alive.all? do |tuple|
+      row, col = tuple
+      model.alive?(row, col)
+    end.should be_true
+  end
+
+
+  it "should create a model from a string" do
+    s = "*.\n.*\n.."
+    model = LifeModel.create_from_string(s);
+
+    model.row_count.should == 3
+    model.column_count.should == 2
+    model.alive?(0, 0).should be_true
+    model.alive?(0, 1).should be_false
+    model.alive?(1, 0).should be_false
+    model.alive?(1, 1).should be_true
+  end
 
 end

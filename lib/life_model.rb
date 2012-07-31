@@ -5,7 +5,22 @@ class LifeModel
   def initialize(rows, columns)
     @data = create_data(rows, columns)
   end
-  
+
+  def self.create_from_string(string)
+    row_count = string.chomp.count("\n") + 1
+    lines = string.split("\n")
+    col_count = lines.first.size
+    model = LifeModel.new(row_count, col_count)
+    (0...row_count).each do |row|
+      line = lines[row]
+      (0...(line.size)).each do |col|
+        ch = line[col]
+        alive = (ch == '*')
+        model.set_living_state(row, col, alive)
+      end
+    end
+    model
+  end
   
   def row_count
     @data.size
@@ -22,7 +37,14 @@ class LifeModel
   def set_living_state(x, y, alive)
     @data[x][y] = alive
   end
-  
+
+  def set_living_states(array_of_row_col_tuples, alive)
+    array_of_row_col_tuples.each do |row_col_tuple|
+      row, col = row_col_tuple
+      set_living_state(row, col, alive)
+    end
+  end
+
   private
   
   def create_data(rows, columns)
