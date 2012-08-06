@@ -1,11 +1,18 @@
+# Object that contains and serves (stores and retrieves)
+# living/dead state of the matrix.
 class LifeModel
   
   attr_accessor :data
-  
+
+  # Creates an instance with the specified number of rows and columns.
+  # All values are initialized to false.
   def initialize(rows, columns)
     @data = create_data(rows, columns)
   end
 
+  # Creates a LifeModel instance whose size and values are specified
+  # in the passed string.  Rows must be delimited by "\n".  The '*'
+  # character represents true, and any other value will evaluate to false.
   def self.create_from_string(string)
     row_count = string.chomp.count("\n") + 1
     lines = string.split("\n")

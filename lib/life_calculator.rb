@@ -1,5 +1,23 @@
+# Performs calculations relating to determination of a cell's neighbors
+# and the next generation.  Generally, 'next_generation' will be the
+# only method that will need to be called, but the others are provided
+# publicly, since the Game of Life is all about experimentation.
 class LifeCalculator
 
+  # Returns a new model with the next generation's data.
+  def next_generation(old_model)
+    new_model = LifeModel.new(old_model.row_count, old_model.column_count)
+    (0...old_model.row_count).each do |row|
+      (0...old_model.column_count).each do |col|
+        new_model.set_living_state(row, col, should_live(old_model, row, col))
+      end
+    end
+    new_model
+  end
+
+  # Returns an array of [row, col] tuples corresponding to the cells
+  # neighboring the specified cell location.  "Neighbor" is defined
+  # as a cell with up/down/left/right/diagonal adjacency to the specified cell.
   def neighbors(model, row, col)
 
     neighbors = []
@@ -49,6 +67,8 @@ class LifeCalculator
   end
 
 
+  # Returns an array of [row, col] tuples corresponding to those
+  # neighbor cells that are alive.
   def num_living_neighbors(model, row, col)
     neighbors(model, row, col).inject(0) do |num_living, neighbor|
       neighbor_row, neighbor_column = neighbor
@@ -58,6 +78,8 @@ class LifeCalculator
   end
 
 
+  # Returns whether or not (as true or false) the specified cell
+  # should continue to live in the next generation.
   def should_live(model, row, col)
     model.alive?(row, col) \
         ? live_cell_should_continue_to_live(model, row, col) \
@@ -70,17 +92,6 @@ class LifeCalculator
 
   def dead_cell_should_become_alive(model, row, col)
     num_living_neighbors(model, row, col) == 3
-  end
-
-    # Returns a new model with the next generation's data.
-  def next_generation(old_model)
-    new_model = LifeModel.new(old_model.row_count, old_model.column_count)
-    (0...old_model.row_count).each do |row|
-      (0...old_model.column_count).each do |col|
-        new_model.set_living_state(row, col, should_live(old_model, row, col))
-      end
-    end
-    new_model
   end
 
 end

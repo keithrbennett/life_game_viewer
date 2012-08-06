@@ -83,9 +83,6 @@ describe LifeCalculator do
     subject.should_live(model, 1, 0).should be_false
   end
 
-  #   - - *
-  #   * * -
-
   it "should calculate live cell true correctly" do
     model = LifeModel.create_from_string("--*\n**-")
     subject.live_cell_should_continue_to_live(model, 1, 1).should be_true
@@ -100,10 +97,6 @@ describe LifeCalculator do
     model = LifeModel.create_from_string("--*\n**-")
     next_gen_model = subject.next_generation(model)
     next_gen_model.should_not == model
-    #puts
-    #puts LifeVisualizer.new.visualize(model)
-    #puts LifeVisualizer.new.visualize(next_gen_model)
-    #puts
   end
 
 
