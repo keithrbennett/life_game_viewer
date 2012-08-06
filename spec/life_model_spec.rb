@@ -88,4 +88,7 @@ describe LifeModel do
     model1.should_not == model2
   end
 
+  it "should initialize identically with constructor and class method" do
+    LifeModel.create_with_row_and_column_count(3, 4).should == LifeModel.new(3, 4)
+  end
 end

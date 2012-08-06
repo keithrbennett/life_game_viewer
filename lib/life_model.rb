@@ -1,5 +1,8 @@
 # Object that contains and serves (stores and retrieves)
 # living/dead state of the matrix.
+#
+# All public methods here should be responded to in alternate
+# model implementations.
 class LifeModel
   
   attr_accessor :data
@@ -8,6 +11,14 @@ class LifeModel
   # All values are initialized to false.
   def initialize(rows, columns)
     @data = create_data(rows, columns)
+  end
+
+  # Creates a LifeModel instance whose size is specified
+  # in the passed parameters. All values will be initialized to false.
+  # Provided as an alternate method to the constructor, as a convenience
+  # for the benefit of code that will be model-implementation-agnostic.
+  def self.create_with_row_and_column_count(rows, columns)
+    LifeModel.new(rows, columns)
   end
 
   # Creates a LifeModel instance whose size and values are specified
