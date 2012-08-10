@@ -5,10 +5,14 @@ java_import javax.swing.table.AbstractTableModel
 class LifeTableModel < AbstractTableModel
 
   attr_accessor :life_model
+  attr_accessor :generations  # array of LifeModel's
+  attr_accessor :current_generation_num
 
   def self.new_instance(life_model)
     instance = LifeTableModel.new
     instance.life_model = life_model
+    instance.generations = [life_model]
+    instance.current_generation_num = 0
     instance
   end
 
@@ -31,7 +35,13 @@ class LifeTableModel < AbstractTableModel
   end
 
   def go_to_next_generation
-    self.life_model = LifeCalculator.new.next_generation(life_model)
+    next_generation_num = current_generation_num + 1
+    next_generation_is_cached = next_generation_num < generations.size
+    unless next_generation_is_cached
+      generations << LifeCalculator.new.next_generation(life_model)
+    end
+    self.life_model = generations[next_generation_num]
+    self.current_generation_num = next_generation_num
   end
 
 end
