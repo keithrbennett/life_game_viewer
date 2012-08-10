@@ -30,9 +30,8 @@ class LifeTableModel < AbstractTableModel
     alive ? '*' : '-'
   end
 
-  def next_generation_model
-    new_model = LifeCalculator.new.next_generation(life_model)
-    LifeTableModel.new_instance(new_model)
+  def go_to_next_generation
+    self.life_model = LifeCalculator.new.next_generation(life_model)
   end
 
 end

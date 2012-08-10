@@ -48,8 +48,8 @@ class MainFrame < JFrame
     end
 
     def show_next_generation
-      @table.setModel(@table.get_model.next_generation_model)
-      life_table_model.fire_data_changed
+      @table.getModel.go_to_next_generation
+      @table.getModel.fire_table_data_changed
     end
 
     def actionPerformed(event)
