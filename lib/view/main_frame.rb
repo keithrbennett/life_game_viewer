@@ -18,11 +18,10 @@ class MainFrame < JFrame
     super('The Game of Life')
     set_default_close_operation(JFrame::EXIT_ON_CLOSE)
     @table_model = LifeTableModel.new_instance(life_model)
-    puts "@table model: #{@table_model}"
     table = JTable.new(@table_model)
     add(header, BorderLayout::NORTH)
     add(table, BorderLayout::CENTER)
-    add(button_panel, BorderLayout::SOUTH)
+    add(bottom_panel, BorderLayout::SOUTH)
     pack
   end
 
@@ -31,6 +30,13 @@ class MainFrame < JFrame
     panel.add(JButton.new(ShowPreviousGenerationAction.new(@table_model)))
     panel.add(JButton.new(ShowNextGenerationAction.new(@table_model)))
     panel.add(JButton.new(ExitAction.new))
+    panel
+  end
+
+  def bottom_panel
+    panel = JPanel.new(GridLayout.new(0, 1))
+    panel.add(button_panel)
+    panel.add(StatusLabel.new_instance(@table_model))
     panel
   end
 
@@ -70,8 +76,8 @@ class MainFrame < JFrame
     def initialize(tableModel)
       super("Show Previous Generation")
       @table_model = tableModel
-      enabled_updater = lambda { self.enabled = @table_model.current_generation_num > 0 }
-      @table_model.add_current_num_change_handler(enabled_updater)
+      @enabled_updater = lambda { self.enabled = @table_model.current_generation_num > 0 }
+      @table_model.add_current_num_change_handler(@enabled_updater)
     end
 
     def show_previous_generation
@@ -79,13 +85,9 @@ class MainFrame < JFrame
       @table_model.fire_table_data_changed
     end
 
-    def update_enabled_state
-      self.enabled = @table_model.current_generation_num > 0
-    end
-
     def actionPerformed(event)
       show_previous_generation
-      update_enabled_state
+      @enabled_updater.call
     end
   end
 
@@ -101,4 +103,20 @@ class MainFrame < JFrame
     end
   end
 
+
+  class StatusLabel < JLabel
+
+    def self.new_instance(table_model)
+      instance = StatusLabel.new
+      instance.init(table_model)
+      instance
+    end
+
+    def init(table_model)
+      @update_text = lambda { self.text = "Current generation: #{table_model.current_generation_num}" }
+      @update_text.call
+      table_model.add_current_num_change_handler(@update_text)
+    end
+
+  end
 end
