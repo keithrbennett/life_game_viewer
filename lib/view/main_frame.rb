@@ -54,6 +54,7 @@ class MainFrame < JFrame
     "<html><h2>The Game of Life (#{@table_model.getRowCount} x #{@table_model.getColumnCount})</h2></html"
   end
 
+
   class ShowNextGenerationAction < AbstractAction
 
     def initialize(tableModel)
@@ -71,6 +72,7 @@ class MainFrame < JFrame
     end
   end
 
+
   class ShowPreviousGenerationAction < AbstractAction
 
     def initialize(tableModel)
@@ -78,6 +80,7 @@ class MainFrame < JFrame
       @table_model = tableModel
       @enabled_updater = lambda { self.enabled = @table_model.current_generation_num > 0 }
       @table_model.add_current_num_change_handler(@enabled_updater)
+      self.enabled = false  # we're already at the first generation
     end
 
     def show_previous_generation
@@ -87,7 +90,6 @@ class MainFrame < JFrame
 
     def actionPerformed(event)
       show_previous_generation
-      @enabled_updater.call
     end
   end
 
@@ -117,6 +119,5 @@ class MainFrame < JFrame
       @update_text.call
       table_model.add_current_num_change_handler(@update_text)
     end
-
   end
 end
