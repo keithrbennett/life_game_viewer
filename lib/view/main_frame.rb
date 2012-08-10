@@ -25,6 +25,7 @@ class MainFrame < JFrame
   end
 
   def header
+    # Use an inner FlowLayout panel embedded in the CENTER of a BorderLayout panel.
     inner_panel = JPanel.new
     label = JLabel.new(header_text)
     inner_panel.add(label)
@@ -34,7 +35,7 @@ class MainFrame < JFrame
   end
 
   def header_text
-    "<html><center><h2>The Game of Life (#{@table_model.getRowCount} x #{@table_model.getColumnCount})</h2></center></html"
+    "<html><h2>The Game of Life (#{@table_model.getRowCount} x #{@table_model.getColumnCount})</h2></html"
   end
 
   class ShowNextGenerationAction < AbstractAction
