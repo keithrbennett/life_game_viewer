@@ -38,7 +38,7 @@ class LifeTableModel < AbstractTableModel
     next_generation_num = current_generation_num + 1
     next_generation_is_cached = next_generation_num < generations.size
     unless next_generation_is_cached
-      generations << LifeCalculator.new.next_generation(life_model)
+      generations << life_model.next_generation_model
     end
     self.life_model = generations[next_generation_num]
     self.current_generation_num = next_generation_num

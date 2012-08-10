@@ -63,14 +63,10 @@ class LifeModel
     end
   end
 
-  private
-  
-  def create_data(rows, columns)
-    data = []
-    rows.times { |n| data << Array.new(columns, false) }
-    data
+  def next_generation_model
+    LifeCalculator.new.next_generation(self)
   end
-  
+
   def to_s
     super.to_s + ": #{row_count} rows, #{column_count} columns"
   end
@@ -82,4 +78,12 @@ class LifeModel
     other.data == data
   end
   
+  private
+
+  def create_data(rows, columns)
+    data = []
+    rows.times { |n| data << Array.new(columns, false) }
+    data
+  end
+
 end
