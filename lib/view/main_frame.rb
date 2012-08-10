@@ -1,12 +1,13 @@
 require 'java'
 
+java_import 'java.awt.BorderLayout'
+java_import 'java.awt.GridLayout'
 java_import 'javax.swing.AbstractAction'
 java_import 'javax.swing.JButton'
 java_import 'javax.swing.JFrame'
 java_import 'javax.swing.JLabel'
 java_import 'javax.swing.JPanel'
 java_import 'javax.swing.JTable'
-java_import 'java.awt.BorderLayout'
 
 
 class MainFrame < JFrame
@@ -20,8 +21,15 @@ class MainFrame < JFrame
     table = JTable.new(@table_model)
     add(header, BorderLayout::NORTH)
     add(table, BorderLayout::CENTER)
-    add(JButton.new(ShowNextGenerationAction.new(@table_model)), BorderLayout::SOUTH)
+    add(button_panel, BorderLayout::SOUTH)
     pack
+  end
+
+  def button_panel
+    panel = JPanel.new(GridLayout.new(1, 0))
+    panel.add(JButton.new(ShowNextGenerationAction.new(@table_model)))
+    panel.add(JButton.new(ExitAction.new))
+    panel
   end
 
   def header
@@ -50,8 +58,20 @@ class MainFrame < JFrame
       @table_model.fire_table_data_changed
     end
 
-    def actionPerformed(event)
+    def action_performed(event)
       show_next_generation
+    end
+  end
+
+
+  class ExitAction < AbstractAction
+
+    def initialize()
+      super("Exit")
+    end
+
+    def actionPerformed(event)
+      java.lang.System.exit(0)
     end
   end
 
