@@ -10,7 +10,8 @@ class LifeTableModel < AbstractTableModel
 
   # This is necessary because of a JRuby bug -- if a Ruby class
   # with a 1-arg constructor subclasses a Java class with only a
-  # no-arg constructor, then an exception is raised.
+  # no-arg constructor, then an exception is raised when that
+  # Ruby class is instantiated.
   def self.new_instance(life_model)
     instance = LifeTableModel.new
     instance.init(life_model)
@@ -35,6 +36,10 @@ class LifeTableModel < AbstractTableModel
   def getValueAt(row, col)
     alive = life_model.alive?(row, col)
     alive ? '*' : '-'
+  end
+
+  def getColumnName(colnum)
+    colnum.to_s
   end
 
   def current_generation_num=(new_num)
