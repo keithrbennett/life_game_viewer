@@ -56,8 +56,13 @@ class LifeTableModel < AbstractTableModel
     next_generation_num = current_generation_num + 1
     next_generation_is_cached = next_generation_num < generations.size
 
-    unless next_generation_is_cached  # find out if this is the last generation
+    if next_generation_is_cached
+      next_generation = generations[next_generation_num]
+    else
       next_generation = life_model.next_generation_model
+
+      # Last generation is defined as the generation after which
+      # there are no changes.
       if next_generation == life_model
         @last_generation_num = current_generation_num
         JOptionPane.show_message_dialog(nil, "Generation ##{current_generation_num} is the last generation.")
@@ -65,8 +70,6 @@ class LifeTableModel < AbstractTableModel
       else
         generations << next_generation
       end
-    else
-      next_generation = generations[next_generation_num]
     end
 
     self.life_model = next_generation
