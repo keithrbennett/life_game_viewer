@@ -1,5 +1,7 @@
 require 'java'
 java_import javax.swing.table.AbstractTableModel
+java_import javax.swing.JOptionPane
+
 
 
 class LifeTableModel < AbstractTableModel
@@ -7,6 +9,8 @@ class LifeTableModel < AbstractTableModel
   attr_accessor :life_model
   attr_reader :generations  # array of LifeModel's
   attr_reader :current_generation_num
+  attr_reader :last_generation_num
+
 
   # This is necessary because of a JRuby bug -- if a Ruby class
   # with a 1-arg constructor subclasses a Java class with only a
@@ -23,6 +27,7 @@ class LifeTableModel < AbstractTableModel
     @generations = [life_model]
     @current_generation_num = 0
     @current_num_change_handlers = []
+    @last_generation_num = nil
   end
 
   def getRowCount
@@ -50,11 +55,23 @@ class LifeTableModel < AbstractTableModel
   def go_to_next_generation
     next_generation_num = current_generation_num + 1
     next_generation_is_cached = next_generation_num < generations.size
-    unless next_generation_is_cached
-      generations << life_model.next_generation_model
+
+    unless next_generation_is_cached  # find out if this is the last generation
+      next_generation = life_model.next_generation_model
+      if next_generation == life_model
+        @last_generation_num = current_generation_num
+        JOptionPane.show_message_dialog(nil, "Generation ##{current_generation_num} is the last generation.")
+        return
+      else
+        generations << next_generation
+      end
+    else
+      next_generation = generations[next_generation_num]
     end
-    self.life_model = generations[next_generation_num]
+
+    self.life_model = next_generation
     self.current_generation_num = next_generation_num
+
   end
 
   def go_to_previous_generation

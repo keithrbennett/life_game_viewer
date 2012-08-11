@@ -142,10 +142,6 @@ class MainFrame < JFrame
       self.vertical_alignment = JLabel::CENTER
       self.opaque = true
     end
-
-    def getPreferredSize
-      Dimension.new(40, 40)
-    end
   end
 
 
