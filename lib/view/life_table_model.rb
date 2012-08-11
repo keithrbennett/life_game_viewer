@@ -39,7 +39,7 @@ class LifeTableModel < AbstractTableModel
   end
 
   def getColumnName(colnum)
-    colnum.to_s
+    nil
   end
 
   def current_generation_num=(new_num)

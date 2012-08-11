@@ -2,8 +2,10 @@ require 'java'
 
 java_import 'java.awt.BorderLayout'
 java_import 'java.awt.Color'
+java_import 'java.awt.Dimension'
 java_import 'java.awt.GridLayout'
 java_import 'javax.swing.AbstractAction'
+java_import 'javax.swing.ImageIcon'
 java_import 'javax.swing.JButton'
 java_import 'javax.swing.JFrame'
 java_import 'javax.swing.JLabel'
@@ -19,12 +21,12 @@ class MainFrame < JFrame
 
   def initialize(life_model)
     super('The Game of Life')
-    set_default_close_operation(JFrame::EXIT_ON_CLOSE)
+    self.default_close_operation = JFrame::EXIT_ON_CLOSE
 
     @table_model = LifeTableModel.new_instance(life_model)
     table = JTable.new(@table_model)
-    table.set_show_grid(true)
-    table.set_grid_color(Color::BLACK)
+    table.show_grid = true
+    table.grid_color = Color::BLUE
     table.set_default_renderer(java.lang.Object, CellRenderer.new)
     table.row_height = 32
 
@@ -132,20 +134,33 @@ class MainFrame < JFrame
     end
   end
 
+  class LifeLabel < JLabel
+
+    def initialize
+      super
+      self.horizontal_alignment = JLabel::CENTER
+      self.vertical_alignment = JLabel::CENTER
+      self.opaque = true
+    end
+
+    def getPreferredSize
+      Dimension.new(40, 40)
+    end
+  end
+
+
   class CellRenderer
 
     def initialize
-      @true_icon = javax.swing.ImageIcon.new('../images/alfred-e-neuman.jpg', 'Alfred E. Neuman')
-      @label = JLabel.new
-      @label.horizontal_alignment = JLabel::CENTER
-      @label.vertical_alignment = JLabel::CENTER
-      @label.opaque = true
+      @label = LifeLabel.new
+      @true_icon = ImageIcon.new('../images/alfred-e-neuman.jpg', 'Alfred E. Neuman')
     end
 
     # from TableCellRenderer interface
     def getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
       alive = (value == '*')
       @label.icon = alive ? @true_icon : nil
+      @label.tool_tip_text = "row #{row}, column #{column}, value is #{alive}"
       @label
     end
   end
