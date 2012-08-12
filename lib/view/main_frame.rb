@@ -91,7 +91,7 @@ class MainFrame < JFrame
     def initialize(tableModel)
       super("Show Previous Generation")
       @table_model = tableModel
-      @enabled_updater = lambda { self.enabled = @table_model.current_generation_num > 0 }
+      @enabled_updater = lambda { |current_generation_num| self.enabled = current_generation_num > 0 }
       @table_model.add_current_num_change_handler(@enabled_updater)
       self.enabled = false  # we're already at the first generation
     end
@@ -128,8 +128,8 @@ class MainFrame < JFrame
     end
 
     def init(table_model)
-      @update_text = lambda { self.text = "Current generation: #{table_model.current_generation_num}" }
-      @update_text.call
+      @update_text = lambda { |current_generation_num| self.text = "Current generation: #{current_generation_num}" }
+      @update_text.call(0)
       table_model.add_current_num_change_handler(@update_text)
     end
   end

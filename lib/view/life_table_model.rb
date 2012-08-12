@@ -49,7 +49,7 @@ class LifeTableModel < AbstractTableModel
 
   def current_generation_num=(new_num)
     @current_generation_num = new_num
-    @current_num_change_handlers.each { |handler| handler.call }
+    @current_num_change_handlers.each { |handler| handler.call(@current_generation_num) }
   end
 
   def go_to_next_generation
