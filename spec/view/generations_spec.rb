@@ -7,8 +7,18 @@ require_relative '../../lib/life_model'
 
 describe Generations do
 
-  it "should instantiate" do
-    Generations.new(LifeModel.new(3, 3))
+  it "should instantiate correctly, and accessors should work properly" do
+    life_model = LifeModel.new(3, 3)
+    generation = Generations.new(life_model)
+    generation.current.should == life_model
+    generation.size.should == 1
+    generation.current_num.should == 0
+  end
+
+  it "should calculate last generation correctly" do
+    Generations.new(LifeModel.create_from_string"**\n**")
+    pending
   end
 
 end
+

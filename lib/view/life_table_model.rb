@@ -2,7 +2,7 @@ require 'java'
 java_import javax.swing.table.AbstractTableModel
 java_import javax.swing.JOptionPane
 
-require 'generations'
+require_relative 'generations'
 
 
 class LifeTableModel < AbstractTableModel
@@ -25,10 +25,7 @@ class LifeTableModel < AbstractTableModel
 
   def init(life_model)
     @life_model = life_model
-    @generations = [life_model]
-    @current_generation_num = 0
-    @current_num_change_handlers = []
-    @last_generation_num = nil
+    @generations = Generations.new(life_model)
   end
 
   def getRowCount
@@ -49,7 +46,7 @@ class LifeTableModel < AbstractTableModel
   end
 
   def go_to_next_generation
-    ensure_next_generation_loaded
+    generations.ensure_next_generation_loaded
     next_generation_num = current_generation_num + 1
     next_generation = generations[next_generation_num]
 
