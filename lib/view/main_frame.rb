@@ -149,7 +149,8 @@ class MainFrame < JFrame
 
     def initialize
       @label = LifeLabel.new
-      @true_icon = ImageIcon.new('../images/alfred-e-neuman.jpg', 'Alfred E. Neuman')
+      image_spec = File.join(File.dirname(__FILE__), '..', '..', 'images', 'alfred-e-neuman.jpg')
+      @true_icon = ImageIcon.new(image_spec, 'Alfred E. Neuman')
     end
 
     # from TableCellRenderer interface
