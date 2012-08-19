@@ -38,8 +38,7 @@ class LifeTableModel < AbstractTableModel
   end
 
   def getValueAt(row, col)
-    alive = life_model.alive?(row, col)
-    alive ? '*' : '-'
+    life_model.alive?(row, col)
   end
 
   def getColumnName(colnum)

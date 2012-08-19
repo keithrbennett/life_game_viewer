@@ -158,7 +158,7 @@ class MainFrame < JFrame
 
     # from TableCellRenderer interface
     def getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
-      alive = (value == '*')
+      alive = value
       @label.icon = alive ? @true_icon : nil
       @label.tool_tip_text = "row #{row}, column #{column}, value is #{alive}"
       @label
