@@ -68,7 +68,7 @@ class LifeModel
   end
 
   def to_s
-    super.to_s + ": #{row_count} rows, #{column_count} columns"
+    super.to_s + ": #{row_count} rows, #{column_count} columns, #{num_alive} alive."
   end
 
   def ==(other)
@@ -77,7 +77,17 @@ class LifeModel
     other.column_count == column_count &&
     other.data == data
   end
-  
+
+  def num_alive
+    num = 0
+    (0...row_count).each do |row|
+      (0...column_count).each do |col|
+        num += 1 if alive?(row, col)
+      end
+    end
+    num
+  end
+
   private
 
   def create_data(rows, columns)
