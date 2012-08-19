@@ -15,6 +15,8 @@ class LifeTableModel < AbstractTableModel
   # with a 1-arg constructor subclasses a Java class with only a
   # no-arg constructor, then an exception is raised when that
   # Ruby class is instantiated.
+  # See http://jira.codehaus.org/browse/JRUBY-2457 and
+  # https://gist.github.com/3390231.
   def self.new_instance(life_model)
     instance = LifeTableModel.new
     instance.init(life_model)
