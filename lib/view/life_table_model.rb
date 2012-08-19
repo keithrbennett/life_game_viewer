@@ -43,22 +43,33 @@ class LifeTableModel < AbstractTableModel
     nil
   end
 
+  def at_first_generation?
+    generations.at_first_generation?
+  end
+
+  def at_last_generation?
+    generations.at_last_generation?
+  end
+
+  def number_living
+    life_model.number_living
+  end
+
   def go_to_next_generation
-    if generations.at_last_generation?
-      JOptionPane.show_message_dialog(nil, "Generation ##{generations.current_num} is the last generation.")
+    if at_last_generation?
+      JOptionPane.show_message_dialog(nil, "Generation ##{generations.current_num} is the last non-repeating generation.")
     else
       self.life_model = generations.next
     end
   end
 
   def go_to_previous_generation
-    previous_generation_num = current_generation_num - 1
-    self.life_model = generations[previous_generation_num]
-    self.current_generation_num = previous_generation_num
+    raise "Should not have gotten here; already at first generation" if at_first_generation?
+    self.life_model = generations.previous
   end
 
   def add_current_num_change_handler(callable)
-    @generations.add_current_num_change_handler(callable)
+    generations.add_current_num_change_handler(callable)
   end
 end
 

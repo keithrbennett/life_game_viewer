@@ -68,7 +68,7 @@ class LifeModel
   end
 
   def to_s
-    super.to_s + ": #{row_count} rows, #{column_count} columns, #{num_alive} alive."
+    super.to_s + ": #{row_count} rows, #{column_count} columns, #{number_living} alive."
   end
 
   def ==(other)
@@ -78,7 +78,7 @@ class LifeModel
     other.data == data
   end
 
-  def num_alive
+  def number_living
     num = 0
     (0...row_count).each do |row|
       (0...column_count).each do |col|

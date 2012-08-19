@@ -22,22 +22,23 @@ class MainFrame < JFrame
   def initialize(life_model)
     super('The Game of Life')
     self.default_close_operation = JFrame::EXIT_ON_CLOSE
+    add(JScrollPane.new(create_table(life_model)), BorderLayout::CENTER)
+    add(create_header, BorderLayout::NORTH)
+    add(create_bottom_panel, BorderLayout::SOUTH)
+    pack
+  end
 
+  def create_table(life_model)
     @table_model = LifeTableModel.new_instance(life_model)
     table = JTable.new(@table_model)
     table.show_grid = true
     table.grid_color = Color::BLUE
     table.set_default_renderer(java.lang.Object, CellRenderer.new)
     table.row_height = 32
-
-    add(header, BorderLayout::NORTH)
-    add(JScrollPane.new(table), BorderLayout::CENTER)
-    add(bottom_panel, BorderLayout::SOUTH)
-
-    pack
+    table
   end
 
-  def button_panel
+  def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
     panel.add(JButton.new(ShowPreviousGenerationAction.new(@table_model)))
     panel.add(JButton.new(ShowNextGenerationAction.new(@table_model)))
@@ -45,14 +46,14 @@ class MainFrame < JFrame
     panel
   end
 
-  def bottom_panel
+  def create_bottom_panel
     panel = JPanel.new(GridLayout.new(0, 1))
-    panel.add(button_panel)
+    panel.add(create_button_panel)
     panel.add(StatusLabel.new_instance(@table_model))
     panel
   end
 
-  def header
+  def create_header
     # Use an inner FlowLayout panel embedded in the CENTER of a BorderLayout panel.
     inner_panel = JPanel.new
     label = JLabel.new(header_text)
@@ -91,7 +92,7 @@ class MainFrame < JFrame
     def initialize(tableModel)
       super("Show Previous Generation")
       @table_model = tableModel
-      @enabled_updater = lambda { |current_generation_num| self.enabled = current_generation_num > 0 }
+      @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
       @table_model.add_current_num_change_handler(@enabled_updater)
       self.enabled = false  # we're already at the first generation
     end
@@ -128,7 +129,9 @@ class MainFrame < JFrame
     end
 
     def init(table_model)
-      @update_text = lambda { |current_generation_num| self.text = "Current generation: #{current_generation_num}" }
+      @update_text = lambda do |current_generation_num|
+        self.text = "Current generation: #{current_generation_num}, Population: #{table_model.number_living}"
+      end
       @update_text.call(0)
       table_model.add_current_num_change_handler(@update_text)
     end
