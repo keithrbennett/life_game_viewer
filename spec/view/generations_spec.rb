@@ -9,10 +9,11 @@ describe Generations do
 
   it "should instantiate correctly, and accessors should work properly" do
     life_model = LifeModel.new(3, 3)
-    generation = Generations.new(life_model)
-    generation.current.should == life_model
-    generation.size.should == 1
-    generation.current_num.should == 0
+    generations = Generations.new(life_model)
+    generations.current.should == life_model
+    generations.current_num.should == 0
+    generations.found_last_generation?.should be_false
+    generations.current_is_last?.should be_false
   end
 
   it "should calculate last generation correctly" do

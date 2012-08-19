@@ -9,8 +9,6 @@ class LifeTableModel < AbstractTableModel
 
   attr_accessor :life_model
   attr_reader :generations  # array of LifeModel's
-  attr_reader :current_generation_num
-  attr_reader :last_generation_num
 
 
   # This is necessary because of a JRuby bug -- if a Ruby class
@@ -46,18 +44,10 @@ class LifeTableModel < AbstractTableModel
   end
 
   def go_to_next_generation
-    generations.ensure_next_generation_loaded
-    next_generation_num = current_generation_num + 1
-    next_generation = generations[next_generation_num]
-
-    # Last generation is defined as the generation after which
-    # there are no changes.
-    if next_generation == life_model
-      @last_generation_num = current_generation_num
-      JOptionPane.show_message_dialog(nil, "Generation ##{current_generation_num} is the last generation.")
+    if generations.at_last_generation?
+      JOptionPane.show_message_dialog(nil, "Generation ##{generations.current_num} is the last generation.")
     else
-      self.life_model = next_generation
-      self.current_generation_num = next_generation_num
+      self.life_model = generations.next
     end
   end
 
