@@ -6,7 +6,6 @@ class Generations < Array
     self << life_model
     @current_num = 0
     @last_num = nil
-    @current_num_change_handlers = []
     ensure_next_in_cache
   end
 
@@ -17,7 +16,6 @@ class Generations < Array
   def current_num=(new_num)
     need_to_notify_listeners = current_num != new_num
     @current_num = new_num
-    fire_current_number_changed if need_to_notify_listeners
   end
 
   def found_last_generation?
@@ -50,24 +48,12 @@ class Generations < Array
     raise "Next was called when at end of lineage." if at_last_generation?
     self.current_num = current_num + 1
     ensure_next_in_cache
-    fire_current_number_changed
     current
   end
 
   def previous
     raise "Previous was called when at first generation." if at_first_generation?
     self.current_num = current_num - 1
-    fire_current_number_changed
     current
-  end
-
-  def add_current_num_change_handler(callable)
-    @current_num_change_handlers << callable
-  end
-
-  def fire_current_number_changed
-    @current_num_change_handlers.each do |handler|
-      handler.call(current_num)
-    end
   end
 end

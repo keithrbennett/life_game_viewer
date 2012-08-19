@@ -24,6 +24,7 @@ class LifeTableModel < AbstractTableModel
   def init(life_model)
     @life_model = life_model
     @generations = Generations.new(life_model)
+    @current_num_change_handlers = []
   end
 
   def getRowCount
@@ -60,16 +61,24 @@ class LifeTableModel < AbstractTableModel
       JOptionPane.show_message_dialog(nil, "Generation ##{generations.current_num} is the last non-repeating generation.")
     else
       self.life_model = generations.next
+      fire_current_number_changed
     end
   end
 
   def go_to_previous_generation
     raise "Should not have gotten here; already at first generation" if at_first_generation?
     self.life_model = generations.previous
+    fire_current_number_changed
   end
 
   def add_current_num_change_handler(callable)
-    generations.add_current_num_change_handler(callable)
+    @current_num_change_handlers << callable
+  end
+
+  def fire_current_number_changed
+    @current_num_change_handlers.each do |handler|
+      handler.call(generations.current_num)
+    end
   end
 end
 
