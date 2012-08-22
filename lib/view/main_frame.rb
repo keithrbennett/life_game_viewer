@@ -152,7 +152,7 @@ class MainFrame < JFrame
 
     def initialize
       @label = LifeLabel.new
-      image_spec = File.join(File.dirname(__FILE__), '..', '..', 'images', 'alfred-e-neuman.jpg')
+      image_spec = File.join(File.dirname(__FILE__), '..', '..', 'resources', 'images', 'alfred-e-neuman.jpg')
       @true_icon = ImageIcon.new(image_spec, 'Alfred E. Neuman')
     end
 
