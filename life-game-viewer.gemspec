@@ -7,6 +7,6 @@ Gem::Specification.new do |s|
   s.description = "Java Swing Game of Life Viewer written in JRuby"
   s.authors     = ["Keith R. Bennett"]
   s.email       = 'keithrbennett@gmail.com'
-  s.files       = Dir["lib/**/*.rb"]
+  s.files       = Dir["lib/**/*.rb", "resources/**/*"]
   s.homepage    = 'http://rubygems.org/gems/life-game-viewer'
 end
