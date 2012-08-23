@@ -91,10 +91,12 @@ class MainFrame < JFrame
   end
 
 
-  class ShowFirstGenerationAction < AbstractAction
+  # Used for both previous and first generation buttons.
+  class ShowPastGenerationAction < AbstractAction
 
-    def initialize(tableModel)
-      super("Show First Generation")
+    def initialize(tableModel, previous_or_first)
+      @is_previous = previous_or_first == :previous
+      super("Show #{@is_previous ? "Previous" : "First" } Generation")
       @table_model = tableModel
       @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
       @table_model.add_current_num_change_handler(@enabled_updater)
@@ -102,29 +104,24 @@ class MainFrame < JFrame
     end
 
     def actionPerformed(event)
-      @table_model.go_to_first_generation
+      if (@is_previous)
+        @table_model.go_to_previous_generation
+      else
+        @table_model.go_to_first_generation
+      end
       @table_model.fire_table_data_changed
     end
   end
 
-
-  class ShowPreviousGenerationAction < AbstractAction
-
-    def initialize(tableModel)
-      super("Show Previous Generation")
-      @table_model = tableModel
-      @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
-      @table_model.add_current_num_change_handler(@enabled_updater)
-      self.enabled = false  # we're already at the first generation
+  class ShowPreviousGenerationAction < ShowPastGenerationAction
+    def initialize(table_model)
+      super(table_model, :previous)
     end
+  end
 
-    def show_previous_generation
-      @table_model.go_to_previous_generation
-      @table_model.fire_table_data_changed
-    end
-
-    def actionPerformed(event)
-      show_previous_generation
+  class ShowFirstGenerationAction < ShowPastGenerationAction
+    def initialize(table_model)
+      super(table_model, :first)
     end
   end
 
