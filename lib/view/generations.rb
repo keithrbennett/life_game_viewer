@@ -56,4 +56,9 @@ class Generations < Array
     self.current_num = current_num - 1
     current
   end
+
+  def first
+    self.current_num = 0
+    current
+  end
 end

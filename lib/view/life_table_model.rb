@@ -72,6 +72,11 @@ class LifeTableModel < AbstractTableModel
     fire_current_number_changed
   end
 
+  def go_to_first_generation
+    self.life_model = generations.first
+    fire_current_number_changed
+  end
+
   def add_current_num_change_handler(callable)
     @current_num_change_handlers << callable
   end

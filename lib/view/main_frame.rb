@@ -43,6 +43,7 @@ class MainFrame < JFrame
 
   def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
+    panel.add(JButton.new(ShowFirstGenerationAction.new(@table_model)))
     panel.add(JButton.new(ShowPreviousGenerationAction.new(@table_model)))
     panel.add(JButton.new(ShowNextGenerationAction.new(@table_model)))
     panel.add(JButton.new(ExitAction.new))
@@ -86,6 +87,23 @@ class MainFrame < JFrame
 
     def actionPerformed(event)
       show_next_generation
+    end
+  end
+
+
+  class ShowFirstGenerationAction < AbstractAction
+
+    def initialize(tableModel)
+      super("Show First Generation")
+      @table_model = tableModel
+      @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
+      @table_model.add_current_num_change_handler(@enabled_updater)
+      self.enabled = false  # we're already at the first generation
+    end
+
+    def actionPerformed(event)
+      @table_model.go_to_first_generation
+      @table_model.fire_table_data_changed
     end
   end
 
