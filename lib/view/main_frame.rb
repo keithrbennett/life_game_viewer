@@ -49,7 +49,7 @@ class MainFrame < JFrame
   def create_bottom_panel
     panel = JPanel.new(GridLayout.new(0, 1))
     panel.add(create_button_panel)
-    panel.add(StatusLabel.new_instance(@table_model))
+    panel.add(StatusLabel.new(@table_model))
     panel
   end
 
@@ -122,13 +122,8 @@ class MainFrame < JFrame
 
   class StatusLabel < JLabel
 
-    def self.new_instance(table_model)
-      instance = StatusLabel.new
-      instance.init(table_model)
-      instance
-    end
-
-    def init(table_model)
+    def initialize(table_model)
+      super()
       @update_text = lambda do |current_generation_num|
         self.text = "Current generation: #{current_generation_num}, Population: #{table_model.number_living}"
       end
