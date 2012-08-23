@@ -14,7 +14,6 @@ class Generations < Array
   end
 
   def current_num=(new_num)
-    need_to_notify_listeners = current_num != new_num
     @current_num = new_num
   end
 
