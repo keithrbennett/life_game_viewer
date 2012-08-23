@@ -1,18 +1,21 @@
 require 'java'
 
-java_import 'java.awt.BorderLayout'
-java_import 'java.awt.Color'
-java_import 'java.awt.Dimension'
-java_import 'java.awt.GridLayout'
-java_import 'javax.swing.AbstractAction'
-java_import 'javax.swing.ImageIcon'
-java_import 'javax.swing.JButton'
-java_import 'javax.swing.JFrame'
-java_import 'javax.swing.JLabel'
-java_import 'javax.swing.JPanel'
-java_import 'javax.swing.JScrollPane'
-java_import 'javax.swing.JTable'
-java_import 'javax.swing.table.TableCellRenderer'
+# Java Imports:
+[
+    'java.awt.BorderLayout',
+    'java.awt.Color',
+    'java.awt.Dimension',
+    'java.awt.GridLayout',
+    'javax.swing.AbstractAction',
+    'javax.swing.ImageIcon',
+    'javax.swing.JButton',
+    'javax.swing.JFrame',
+    'javax.swing.JLabel',
+    'javax.swing.JPanel',
+    'javax.swing.JScrollPane',
+    'javax.swing.JTable',
+    'javax.swing.table.TableCellRenderer'
+].each { |java_class| java_import(java_class)}
 
 
 class MainFrame < JFrame
