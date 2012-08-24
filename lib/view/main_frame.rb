@@ -80,6 +80,8 @@ class MainFrame < JFrame
       @is_next = next_or_last == :next
       super("Show #{@is_next ? "Next" : "Last" } Generation")
       @table_model = tableModel
+      @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_last_generation? }
+      @table_model.add_current_num_change_handler(@enabled_updater)
     end
 
     def actionPerformed(event)

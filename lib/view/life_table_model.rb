@@ -78,7 +78,6 @@ class LifeTableModel < AbstractTableModel
   end
 
   def go_to_last_generation
-    puts "calling generations.last"
     self.life_model = generations.last
     fire_current_number_changed
   end
