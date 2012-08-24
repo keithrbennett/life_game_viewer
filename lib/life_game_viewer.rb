@@ -1,12 +1,8 @@
 #!/usr/bin/env ruby
 
-puts "Doing requires"
-
 require_relative 'model/life_model'
 require_relative 'view/life_table_model'
 require_relative 'view/main_frame'
-
-puts "Finished requires"
 
 class LifeGameViewer
 
