@@ -83,7 +83,6 @@ class MainFrame < JFrame
     end
 
     def actionPerformed(event)
-      puts "In future event"
       if @is_next
         @table_model.go_to_next_generation
       else
@@ -163,7 +162,8 @@ class MainFrame < JFrame
     def initialize(table_model)
       super()
       @update_text = lambda do |current_generation_num|
-        self.text = "Current generation: #{current_generation_num}, Population: #{table_model.number_living}"
+        last_fragment = table_model.at_last_generation? ? " (Last)" : ""
+        self.text = "Current generation#{last_fragment}: #{current_generation_num}, Population: #{table_model.number_living}"
       end
       @update_text.call(0)
       table_model.add_current_num_change_handler(@update_text)
