@@ -45,6 +45,7 @@ class MainFrame < JFrame
   def create_table(life_model)
     @table_model = LifeTableModel.new_instance(life_model)
     table = JTable.new(@table_model)
+    table.table_header = nil
     table.show_grid = true
     table.grid_color = Color::BLUE
     table.set_default_renderer(java.lang.Object, CellRenderer.new)
