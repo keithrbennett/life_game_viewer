@@ -6,14 +6,17 @@ require 'java'
     java.awt.Color
     java.awt.Dimension
     java.awt.GridLayout
+    java.awt.event.KeyEvent
     javax.swing.AbstractAction
     javax.swing.ImageIcon
     javax.swing.JButton
+    javax.swing.JComponent
     javax.swing.JFrame
     javax.swing.JLabel
     javax.swing.JPanel
     javax.swing.JScrollPane
     javax.swing.JTable
+    javax.swing.KeyStroke
     javax.swing.table.TableCellRenderer
 ).each { |java_class| java_import(java_class)}
 
@@ -41,12 +44,22 @@ class MainFrame < JFrame
     table
   end
 
+  def create_button(action_class, keystroke_text)
+    action = action_class.send(:new, @table_model)
+    button = JButton.new(action)
+    key = KeyStroke.getKeyStroke(keystroke_text)
+    button.get_input_map(JComponent::WHEN_IN_FOCUSED_WINDOW).put(key, keystroke_text)
+    button.get_action_map.put(keystroke_text, action)
+    button
+  end
+
   def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
-    panel.add(JButton.new(ShowFirstGenerationAction.new(@table_model)))
-    panel.add(JButton.new(ShowPreviousGenerationAction.new(@table_model)))
-    panel.add(JButton.new(ShowNextGenerationAction.new(@table_model)))
-    panel.add(JButton.new(ShowLastGenerationAction.new(@table_model)))
+
+    panel.add(create_button(ShowPreviousGenerationAction, KeyEvent::VK_4))
+    panel.add(create_button(ShowNextGenerationAction,     KeyEvent::VK_7))
+    panel.add(create_button(ShowFirstGenerationAction,    KeyEvent::VK_1))
+    panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
     panel.add(JButton.new(ExitAction.new))
     panel
   end
@@ -78,7 +91,10 @@ class MainFrame < JFrame
 
     def initialize(tableModel, next_or_last)
       @is_next = next_or_last == :next
-      super("Show #{@is_next ? "Next" : "Last" } Generation")
+      caption = @is_next \
+          ? "Next Generation (7)"
+          : "Last Generation (0)"
+      super(caption)
       @table_model = tableModel
       @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_last_generation? }
       @table_model.add_current_num_change_handler(@enabled_updater)
@@ -110,14 +126,16 @@ class MainFrame < JFrame
   end
 
 
-
-
   # Used for both previous and first generation buttons.
   class ShowPastGenerationAction < AbstractAction
 
     def initialize(tableModel, previous_or_first)
       @is_previous = previous_or_first == :previous
-      super("Show #{@is_previous ? "Previous" : "First" } Generation")
+      caption = @is_previous \
+          ? "Previous Generation (4)"
+          : "First Generation (1)"
+      super(caption)
+
       @table_model = tableModel
       @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
       @table_model.add_current_num_change_handler(@enabled_updater)
