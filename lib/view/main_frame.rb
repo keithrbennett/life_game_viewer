@@ -1,21 +1,21 @@
 require 'java'
 
 # Java Imports:
-[
-    'java.awt.BorderLayout',
-    'java.awt.Color',
-    'java.awt.Dimension',
-    'java.awt.GridLayout',
-    'javax.swing.AbstractAction',
-    'javax.swing.ImageIcon',
-    'javax.swing.JButton',
-    'javax.swing.JFrame',
-    'javax.swing.JLabel',
-    'javax.swing.JPanel',
-    'javax.swing.JScrollPane',
-    'javax.swing.JTable',
-    'javax.swing.table.TableCellRenderer'
-].each { |java_class| java_import(java_class)}
+%w(
+    java.awt.BorderLayout
+    java.awt.Color
+    java.awt.Dimension
+    java.awt.GridLayout
+    javax.swing.AbstractAction
+    javax.swing.ImageIcon
+    javax.swing.JButton
+    javax.swing.JFrame
+    javax.swing.JLabel
+    javax.swing.JPanel
+    javax.swing.JScrollPane
+    javax.swing.JTable
+    javax.swing.table.TableCellRenderer
+).each { |java_class| java_import(java_class)}
 
 
 class MainFrame < JFrame
@@ -46,6 +46,7 @@ class MainFrame < JFrame
     panel.add(JButton.new(ShowFirstGenerationAction.new(@table_model)))
     panel.add(JButton.new(ShowPreviousGenerationAction.new(@table_model)))
     panel.add(JButton.new(ShowNextGenerationAction.new(@table_model)))
+    panel.add(JButton.new(ShowLastGenerationAction.new(@table_model)))
     panel.add(JButton.new(ExitAction.new))
     panel
   end
@@ -73,22 +74,41 @@ class MainFrame < JFrame
   end
 
 
-  class ShowNextGenerationAction < AbstractAction
+  class ShowFutureGenerationAction < AbstractAction
 
-    def initialize(tableModel)
-      super("Show Next Generation")
+    def initialize(tableModel, next_or_last)
+      @is_next = next_or_last == :next
+      super("Show #{@is_next ? "Next" : "Last" } Generation")
       @table_model = tableModel
     end
 
-    def show_next_generation
-      @table_model.go_to_next_generation
+    def actionPerformed(event)
+      puts "In future event"
+      if @is_next
+        @table_model.go_to_next_generation
+      else
+        @table_model.go_to_last_generation
+      end
       @table_model.fire_table_data_changed
     end
+  end
 
-    def actionPerformed(event)
-      show_next_generation
+  class ShowNextGenerationAction < ShowFutureGenerationAction
+
+    def initialize(tableModel)
+      super(tableModel, :next)
     end
   end
+
+
+  class ShowLastGenerationAction < ShowFutureGenerationAction
+
+    def initialize(tableModel)
+      super(tableModel, :last)
+    end
+  end
+
+
 
 
   # Used for both previous and first generation buttons.

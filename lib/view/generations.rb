@@ -60,4 +60,11 @@ class Generations < Array
     self.current_num = 0
     current
   end
+
+  def last
+    until at_last_generation?
+      self.next
+    end
+    current
+  end
 end
