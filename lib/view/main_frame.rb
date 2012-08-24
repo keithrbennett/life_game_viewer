@@ -64,9 +64,9 @@ class MainFrame < JFrame
   def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
 
+    panel.add(create_button(ShowFirstGenerationAction,    KeyEvent::VK_1))
     panel.add(create_button(ShowPreviousGenerationAction, KeyEvent::VK_4))
     panel.add(create_button(ShowNextGenerationAction,     KeyEvent::VK_7))
-    panel.add(create_button(ShowFirstGenerationAction,    KeyEvent::VK_1))
     panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
     panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
     panel
