@@ -5,7 +5,9 @@ require 'java'
     java.awt.BorderLayout
     java.awt.Color
     java.awt.Dimension
+    java.awt.Frame
     java.awt.GridLayout
+    java.awt.Toolkit
     java.awt.event.KeyEvent
     javax.swing.AbstractAction
     javax.swing.ImageIcon
@@ -31,7 +33,14 @@ class MainFrame < JFrame
     add(JScrollPane.new(create_table(life_model)), BorderLayout::CENTER)
     add(create_header, BorderLayout::NORTH)
     add(create_bottom_panel, BorderLayout::SOUTH)
+    maximize_frame
     pack
+  end
+
+  def maximize_frame
+    screen_size = Toolkit.get_default_toolkit.screen_size
+    set_size(screen_size.width, screen_size.height)
+    setExtendedState(JFrame::MAXIMIZED_BOTH)
   end
 
   def create_table(life_model)
