@@ -19,6 +19,7 @@ require 'java'
     javax.swing.JScrollPane
     javax.swing.JTable
     javax.swing.KeyStroke
+    javax.swing.BorderFactory
     javax.swing.table.TableCellRenderer
 ).each { |java_class| java_import(java_class)}
 
@@ -33,6 +34,7 @@ class MainFrame < JFrame
     add(JScrollPane.new(create_table(life_model)), BorderLayout::CENTER)
     add(create_header, BorderLayout::NORTH)
     add(create_bottom_panel, BorderLayout::SOUTH)
+    get_content_pane.border = BorderFactory.create_empty_border(12, 12, 12, 12)
     pack
   end
 
