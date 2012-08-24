@@ -15,14 +15,6 @@ class LifeModel
     @data = create_data(rows, columns)
   end
 
-  # Creates a LifeModel instance whose size is specified
-  # in the passed parameters. All values will be initialized to false.
-  # Provided as an alternate method to the constructor, as a convenience
-  # for the benefit of code that will be model-implementation-agnostic.
-  def self.create_with_row_and_column_count(rows, columns)
-    LifeModel.new(rows, columns)
-  end
-
   # Creates a LifeModel instance whose size and values are specified
   # in the passed string.  Rows must be delimited by "\n".  The '*'
   # character represents true, and any other value will evaluate to false.
