@@ -187,6 +187,7 @@ class MainFrame < JFrame
         self.text = "Current generation#{last_fragment}: #{current_generation_num}, Population: #{table_model.number_living}"
       end
       @update_text.call(0)
+      self.horizontal_alignment = JLabel::CENTER
       table_model.add_current_num_change_handler(@update_text)
     end
   end
