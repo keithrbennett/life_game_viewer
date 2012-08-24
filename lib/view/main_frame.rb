@@ -181,6 +181,7 @@ class MainFrame < JFrame
     # table_model param not used but needed for instantiation by create_button
     def initialize(table_model)
       super("Exit (Q)")
+      put_value(SHORT_DESCRIPTION, 'Press capital-Q to exit.')
     end
 
     def actionPerformed(event)
