@@ -1,7 +1,7 @@
 require_relative "life_calculator"
 
 # Object that contains and serves (stores and retrieves)
-# living/dead state of the matrix.
+# living/dead states in the matrix.
 #
 # All public methods here should be responded to in alternate
 # model implementations.
