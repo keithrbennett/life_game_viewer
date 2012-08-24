@@ -17,10 +17,7 @@ class LifeGameViewer
   end
 
   def view
-
     life_model = LifeModel.create_from_string(start_string)
-    puts "got life model, now starting viewer"
-
     MainFrame.new(life_model).set_visible(true)
   end
 
