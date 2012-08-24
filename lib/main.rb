@@ -1,17 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative 'model/life_model'
-require_relative 'view/life_table_model'
-require_relative 'view/main_frame'
+require_relative 'life_game_viewer'
 
-
-def start_string
-  str = ''
-  20.times { str << ('*-' * 10) << "\n" }
-  str
-end
-
-
-life_model = LifeModel.create_from_string(start_string)
-MainFrame.new(life_model).set_visible(true)
-
+LifeGameViewer.new.view

@@ -118,6 +118,7 @@ class MainFrame < JFrame
     end
   end
 
+
   class ShowNextGenerationAction < ShowFutureGenerationAction
 
     def initialize(table_model)
@@ -160,11 +161,13 @@ class MainFrame < JFrame
     end
   end
 
+
   class ShowPreviousGenerationAction < ShowPastGenerationAction
     def initialize(table_model)
       super(table_model, :previous)
     end
   end
+
 
   class ShowFirstGenerationAction < ShowPastGenerationAction
     def initialize(table_model)
@@ -200,6 +203,7 @@ class MainFrame < JFrame
     end
   end
 
+
   class CellRenderer
 
     class LifeLabel < JLabel
@@ -221,7 +225,7 @@ class MainFrame < JFrame
     end
 
     # from TableCellRenderer interface
-    def getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
+    def getTableCellRendererComponent(table, value, is_selected, has_focus, row, column)
       alive = value
       @label.icon = alive ? @true_icon : nil
       @label.tool_tip_text = "row #{row}, column #{column}, value is #{alive}"

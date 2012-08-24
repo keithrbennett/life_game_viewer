@@ -6,18 +6,13 @@ require_relative 'view/main_frame'
 
 class LifeGameViewer
 
-  def start_string
+  def sample_start_string
     str = ''
     20.times { str << ('*-' * 10) << "\n" }
     str
   end
 
-  def view
-    life_model = LifeModel.create_from_string(start_string)
-    MainFrame.new(life_model).set_visible(true)
-  end
-
-  def self.hi
-    puts "Hello world!  Enjoy LifeGameViewer!"
+  def view(first_generation_model = LifeModel.create_from_string(sample_start_string))
+    MainFrame.new(first_generation_model).set_visible(true)
   end
 end
