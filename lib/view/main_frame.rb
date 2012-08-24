@@ -60,7 +60,7 @@ class MainFrame < JFrame
     panel.add(create_button(ShowNextGenerationAction,     KeyEvent::VK_7))
     panel.add(create_button(ShowFirstGenerationAction,    KeyEvent::VK_1))
     panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
-    panel.add(JButton.new(ExitAction.new))
+    panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
     panel
   end
 
@@ -167,8 +167,9 @@ class MainFrame < JFrame
 
   class ExitAction < AbstractAction
 
-    def initialize()
-      super("Exit")
+    # table_model param not used but needed for instantiation by create_button
+    def initialize(table_model)
+      super("Exit (Q)")
     end
 
     def actionPerformed(event)
@@ -190,18 +191,18 @@ class MainFrame < JFrame
     end
   end
 
-  class LifeLabel < JLabel
-
-    def initialize
-      super
-      self.horizontal_alignment = JLabel::CENTER
-      self.vertical_alignment = JLabel::CENTER
-      self.opaque = true
-    end
-  end
-
-
   class CellRenderer
+
+    class LifeLabel < JLabel
+
+      def initialize
+        super
+        self.horizontal_alignment = JLabel::CENTER
+        self.vertical_alignment = JLabel::CENTER
+        self.opaque = true
+      end
+    end
+
 
     def initialize
       @label = LifeLabel.new
