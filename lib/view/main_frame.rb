@@ -96,16 +96,16 @@ class MainFrame < JFrame
 
   class ShowNextGenerationAction < ShowFutureGenerationAction
 
-    def initialize(tableModel)
-      super(tableModel, :next)
+    def initialize(table_model)
+      super(table_model, :next)
     end
   end
 
 
   class ShowLastGenerationAction < ShowFutureGenerationAction
 
-    def initialize(tableModel)
-      super(tableModel, :last)
+    def initialize(table_model)
+      super(table_model, :last)
     end
   end
 
