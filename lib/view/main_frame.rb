@@ -1,5 +1,7 @@
 require 'java'
 
+require_relative('../model/life_visualizer')
+
 # Java Imports:
 %w(
     java.awt.BorderLayout
@@ -69,6 +71,7 @@ class MainFrame < JFrame
     panel.add(create_button(ShowPreviousGenerationAction, KeyEvent::VK_4))
     panel.add(create_button(ShowNextGenerationAction,     KeyEvent::VK_7))
     panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
+    panel.add(create_button(CopyToClipboardAction,        KeyEvent::VK_C))
     panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
     panel
   end
@@ -190,6 +193,20 @@ class MainFrame < JFrame
     end
   end
 
+
+  class CopyToClipboardAction < AbstractAction
+
+    def initialize(table_model)
+      super("Copy to Clipboard (C)")
+      put_value(SHORT_DESCRIPTION, 'Press capital-C to copy board contents to clipboard.')
+      @table_model = table_model
+    end
+
+    def actionPerformed(event)
+      LifeVisualizer.new.copy_to_clipboard(@table_model.life_model)
+    end
+
+  end
 
   class StatusLabel < JLabel
 
