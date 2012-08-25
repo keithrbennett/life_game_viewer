@@ -11,7 +11,6 @@ require_relative 'clipboard_helper'
     java.awt.Frame
     java.awt.GridLayout
     java.awt.Toolkit
-    java.awt.datatransfer.DataFlavor
     java.awt.event.KeyEvent
     java.awt.event.WindowAdapter
     javax.swing.AbstractAction
@@ -212,7 +211,8 @@ class MainFrame < JFrame
     end
 
     def actionPerformed(event)
-      LifeVisualizer.new.copy_to_clipboard(@table_model.life_model)
+      text = LifeVisualizer.new.to_display_string(@table_model.life_model)
+      ClipboardHelper.clipboard_text = text
     end
 
   end
