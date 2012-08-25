@@ -13,13 +13,14 @@ LifeModel's implementation with your own.  You will need to
 respond appropriately to the LifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
-different design. A LifeModel skeleton file is provided for this purpose.
+different design. A LifeModel skeleton file is provided in the
+lib/model directory for this purpose.
 
 This software is located on GitHub at https://github.com/keithrbennett/life-game-viewer.
 
 You can run it as follows: by rvm'ing to JRuby, cd'ing to the project's home directory,
 
-```shell
+```
 rvm jruby
 cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
 lib/main.rb
