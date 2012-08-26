@@ -74,9 +74,6 @@ The clipboard functionality enables you to edit game data by doing the following
 In many cases, it will be easier to generate the string programmatically, either in the program itself,
 or in irb.
 
-Note: I'm currently working on a bug with the clipboard keystrokes -- the buttons don't
-receive the events if a button hasn't already been clicked.  If the keystroke
-doesn't work, click the button.
 
 Using it as a Gem
 -----------------

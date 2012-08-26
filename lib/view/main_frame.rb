@@ -12,7 +12,9 @@ require_relative('../model/life_visualizer')
     java.awt.Toolkit
     java.awt.datatransfer.DataFlavor
     java.awt.event.KeyEvent
+    java.awt.event.WindowAdapter
     javax.swing.AbstractAction
+    javax.swing.BorderFactory
     javax.swing.ImageIcon
     javax.swing.JButton
     javax.swing.JComponent
@@ -22,10 +24,13 @@ require_relative('../model/life_visualizer')
     javax.swing.JScrollPane
     javax.swing.JTable
     javax.swing.KeyStroke
-    javax.swing.BorderFactory
+    javax.swing.UIManager
     javax.swing.table.TableCellRenderer
 ).each { |java_class| java_import(java_class)}
 
+
+IS_MAC = /^Mac/ === java.lang.System.properties['os.name']
+CLIPBOARD_KEY_PREFIX = IS_MAC ? "Apple" : "Ctrl"
 
 class MainFrame < JFrame
 
@@ -38,6 +43,7 @@ class MainFrame < JFrame
     add(create_header, BorderLayout::NORTH)
     add(create_bottom_panel, BorderLayout::SOUTH)
     get_content_pane.border = BorderFactory.create_empty_border(12, 12, 12, 12)
+    addWindowListener(InitialFocusSettingWindowListener.new(@next_button))
     pack
   end
 
@@ -65,15 +71,29 @@ class MainFrame < JFrame
     button
   end
 
+  def input_action_key(action)
+    map = UIManager.get("TextField.focusInputMap")
+    map.keys.select { |key| map.get(key) == action }.first
+  end
+
+  def copy_key
+    input_action_key("copy-to-clipboard").to_string
+  end
+
+  def paste_key
+    input_action_key("paste-from-clipboard").to_string
+  end
+
   def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
 
     panel.add(create_button(ShowFirstGenerationAction,    KeyEvent::VK_1))
     panel.add(create_button(ShowPreviousGenerationAction, KeyEvent::VK_4))
-    panel.add(create_button(ShowNextGenerationAction,     KeyEvent::VK_7))
+    @next_button = create_button(ShowNextGenerationAction, KeyEvent::VK_7)
+    panel.add(@next_button)
     panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
-    panel.add(create_button(CopyToClipboardAction,        KeyEvent::VK_C))
-    panel.add(create_button(NewGameFromClipboardAction,   KeyEvent::VK_N))
+    panel.add(create_button(CopyToClipboardAction,        copy_key))
+    panel.add(create_button(NewGameFromClipboardAction,   paste_key))
     panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
     panel
   end
@@ -200,7 +220,7 @@ class MainFrame < JFrame
 
     def initialize(table_model)
       super("Copy to Clipboard (C)")
-      put_value(SHORT_DESCRIPTION, 'Press capital-C to copy board contents to clipboard.')
+      put_value(SHORT_DESCRIPTION, "Press #{CLIPBOARD_KEY_PREFIX}-C to copy board contents to clipboard.")
       @table_model = table_model
     end
 
@@ -213,8 +233,8 @@ class MainFrame < JFrame
   class NewGameFromClipboardAction < AbstractAction
 
     def initialize(table_model)
-      super("Paste New Game (N)")
-      put_value(SHORT_DESCRIPTION, 'Press capital-N to create a new game from the clipboard contents.')
+      super("Paste New Game (V)")
+      put_value(SHORT_DESCRIPTION, "Press #{CLIPBOARD_KEY_PREFIX}-V to create a new game from the clipboard contents.")
       @table_model = table_model
     end
 
@@ -272,3 +292,17 @@ class MainFrame < JFrame
     end
   end
 end
+
+
+class InitialFocusSettingWindowListener < WindowAdapter
+
+  def initialize(component_requesting_focus)
+    super()
+    @component_requesting_focus = component_requesting_focus
+  end
+
+  def windowOpened(event)
+    @component_requesting_focus.requestFocus
+  end
+end
+
