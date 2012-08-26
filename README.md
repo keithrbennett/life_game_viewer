@@ -1,6 +1,9 @@
 Game of Life Viewer
 ===================
 
+(Note: These instructions assume use of a Unix command line (e.g. Linux, Mac OS) and rvm.
+If you're using Windows, make the appropriate substitutions, such as '\' for '/', 'ren' for 'mv'.)
+
 This is a JRuby application that uses Java's Swing UI library
 to render generations of Conway's Game of Life.
 
@@ -12,12 +15,18 @@ Using it to View Your Own Game of Life Model Implementation
 -----------------------------------------------------------
 
 In order to do the exercise, you will need to effectively replace the
-LifeModel's implementation with your own.  You will need to
+LifeModel's implementation with your own.  Your model will need to
 respond appropriately to the LifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
 different design. A LifeModel skeleton file is provided in the
-lib/model directory for this purpose.
+lib/model directory for this purpose, so you can do the following:
+
+```sh
+cd $LIFE_GAME_VIEWER_HOME/lib  # wherever you've put it
+mv LifeModel.rb LifeModelSample.rb
+cp LifeModelSkeleton.rb LifeModel.rb
+```
 
 Where to Find This Software
 ---------------------------
@@ -30,7 +39,7 @@ How to Run This Software
 
 You can run it as follows:
 
-```bash
+```shell
 rvm install jruby          # if not already installed and using rvm
 rvm jruby                  # if necessary and using rvm
 cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
