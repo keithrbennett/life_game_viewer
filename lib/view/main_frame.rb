@@ -104,7 +104,7 @@ class MainFrame < JFrame
   end
 
   def header_text
-    "<html><h2>The Game of Life (#{@table_model.getRowCount} x #{@table_model.getColumnCount})</h2></html"
+    "<html><h2>Conway's Game of Life Viewer</h2></html"
   end
 
 
