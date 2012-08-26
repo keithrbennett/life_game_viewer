@@ -6,7 +6,7 @@ class ClipboardHelper
   end
 
   def self.clipboard_text
-    transferable = @clipboard_helper.clipboard.getContents(self)
+    transferable = clipboard.getContents(self)
     transferable.getTransferData(DataFlavor::stringFlavor)
   end
 
