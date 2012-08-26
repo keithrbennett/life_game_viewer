@@ -37,6 +37,34 @@ cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
 lib/main.rb                # or jruby lib/main.rb if you're not using rvm
 ```
 
+Reading and Writing Game Data
+------------------------------------------------------
+
+The application uses the system clipboard to read and write (i.e. load and save)
+game data.  You use the same keys you would normally use for copying pasting;
+that is, Command c and v on a Mac, and Ctrl c and v on other system.
+
+Data is represented as follows:
+
+* The data is a single string of lines, each line representing a row in the matrix
+* Alive (true) values are represented as asterisks ('*'), and false values are hyphens.
+
+For example, the two lines below:
+
+```
+*-
+-*
+```
+
+...pasted from your clipboard would represent a 2 x 2 matrix in which only the upper left and
+lower right cells were alive.  The final row's new line is optional.
+
+When you copy a new game's data into the application, it clears all other data and
+uses that as generation #0.
+
+Note: I'm currently working on a bug with the clipboard keystrokes -- the buttons don't
+receive the events if a button hasn't already been clicked.  If the keystroke
+doesn't work, click the button.
 
 Using it as a Gem
 -----------------
