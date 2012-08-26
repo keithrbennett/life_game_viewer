@@ -56,11 +56,23 @@ For example, the two lines below:
 -*
 ```
 
-...pasted from your clipboard would represent a 2 x 2 matrix in which only the upper left and
+...represents a 2 x 2 matrix in which only the upper left and
 lower right cells were alive.  The final row's new line is optional.
 
 When you copy a new game's data into the application, it clears all other data and
 uses that as generation #0.
+
+The clipboard functionality enables you to edit game data by doing the following:
+
+* copy the game's current data into the clipboard 
+* paste it into an editor window
+* edit it
+* 'select all' it
+* copy it to your clipboard
+* paste it back into the game
+
+In many cases, it will be easier to generate the string programmatically, either in the program itself,
+or in irb.
 
 Note: I'm currently working on a bug with the clipboard keystrokes -- the buttons don't
 receive the events if a button hasn't already been clicked.  If the keystroke
