@@ -92,7 +92,7 @@ class LifeTableModel < AbstractTableModel
 
   def reset_model(new_model)
     self.inner_model = new_model
-    fire_table_data_changed
+    fire_table_structure_changed
   end
 
   def fire_current_number_changed
