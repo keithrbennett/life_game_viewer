@@ -2,7 +2,8 @@ Game of Life Viewer
 ===================
 
 This is a JRuby application that uses Java's Swing UI library
-to render generations of Conway's Game of Life.
+to render generations of Conway's Game of Life.  More information
+on the game is at http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life.
 
 My intention in writing it was to provide a GUI player
 with which developers could view and test their implementations
@@ -50,8 +51,9 @@ lib/main.rb                # or jruby lib/main.rb if you're not using rvm
 Reading and Writing Game Data
 ------------------------------------------------------
 
-The application uses the system clipboard to read and write (i.e. load and save)
-game data.  You use the same keys you would normally use for copying pasting;
+The application starts with a sample data set that can be easily modified in the code.
+You can also use the provided buttons to use the system clipboard to load and save
+game data.  You use the same keys you would normally use for copying pasting,
 that is, Command c and v on a Mac, and Ctrl c and v on other system.
 
 Data is represented as follows:
@@ -66,8 +68,8 @@ For example, the two lines below:
 -*
 ```
 
-...represents a 2 x 2 matrix in which only the upper left and
-lower right cells were alive.  The final row's new line is optional.
+...represent a 2 x 2 matrix in which only the upper left and
+lower right cells are alive.  The final row's new line is optional.
 
 When you copy a new game's data into the application, it clears all other data and
 uses that as generation #0.
@@ -94,6 +96,7 @@ on RubyGems). Then in your code (or in JRuby's irb) you can do:
 
 ```ruby
 require 'life_game_viewer'
-LifeGameViewer.new.view
+LifeGameViewer.new(my_model_instance).view  # with an instance of your own model to view that
+# or
+# LifeGameViewer.new.view  # without an arg to see the sample data set
 ```
-
