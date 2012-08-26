@@ -1,5 +1,5 @@
-life_game_viewer
-================
+Game of Life Viewer
+===================
 
 This is a JRuby application that uses Java's Swing UI library
 to render generations of Conway's Game of Life.
@@ -7,6 +7,9 @@ to render generations of Conway's Game of Life.
 My intention in writing it was to provide a GUI player
 with which developers could view and test their implementations
 of the Game of Life exercise.
+
+Using it to View Your Own Game of Life Model Implementation
+-----------------------------------------------------------
 
 In order to do the exercise, you will need to effectively replace the
 LifeModel's implementation with your own.  You will need to
@@ -16,9 +19,16 @@ want, even using the LifeModel as a minimal adapter to a completely
 different design. A LifeModel skeleton file is provided in the
 lib/model directory for this purpose.
 
+Where to Find This Software
+---------------------------
+
 This software is located on GitHub at https://github.com/keithrbennett/life-game-viewer.
 
-You can run it as follows: by rvm'ing to JRuby, cd'ing to the project's home directory,
+
+How to Run This Software
+------------------------
+
+You can run it as follows:
 
 ```
 rvm jruby
@@ -26,13 +36,12 @@ cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
 lib/main.rb
 ```
 
-It is also available via the standard gem repository, so you can just do:
 
-You can also use it as a gem.  It will be made available on the standard
-gem repository (if it is not already), or you can 'gem build' it
-from the project root on the command line.
+### Under Construction:
 
-Then in your code (or in JRuby's irb) you can do:
+You can also use it as a gem by 'gem build'ing it 
+from the project root on the command line. (it's not yet available
+on RubyGems). Then in your code (or in JRuby's irb) you can do:
 
 ```ruby
 require 'life_game_viewer'
