@@ -30,14 +30,16 @@ How to Run This Software
 
 You can run it as follows:
 
-```
-rvm jruby
+```bash
+rvm install jruby          # if not already installed and using rvm
+rvm jruby                  # if necessary and using rvm
 cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
-lib/main.rb
+lib/main.rb                # or jruby lib/main.rb if you're not using rvm
 ```
 
 
-### Under Construction:
+Using it as a Gem
+-----------------
 
 You can also use it as a gem by 'gem build'ing it 
 from the project root on the command line. (it's not yet available
