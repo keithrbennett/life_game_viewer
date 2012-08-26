@@ -1,6 +1,7 @@
 require 'java'
 
-require_relative('../model/life_visualizer')
+require_relative '../model/life_visualizer'
+require_relative 'clipboard_helper'
 
 # Java Imports:
 %w(
@@ -29,9 +30,6 @@ require_relative('../model/life_visualizer')
 ).each { |java_class| java_import(java_class)}
 
 
-IS_MAC = /^Mac/ === java.lang.System.properties['os.name']
-CLIPBOARD_KEY_PREFIX = IS_MAC ? "Apple" : "Ctrl"
-
 class MainFrame < JFrame
 
   attr_accessor :table_model
@@ -47,6 +45,8 @@ class MainFrame < JFrame
     pack
   end
 
+  # Change this to a java.awt.Dimension with different values
+  # if you don't want the window to take up the whole screen.
   def getPreferredSize
     Toolkit.get_default_toolkit.screen_size
   end
@@ -71,19 +71,6 @@ class MainFrame < JFrame
     button
   end
 
-  def input_action_key(action)
-    map = UIManager.get("TextField.focusInputMap")
-    map.keys.select { |key| map.get(key) == action }.first
-  end
-
-  def copy_key
-    input_action_key("copy-to-clipboard").to_string
-  end
-
-  def paste_key
-    input_action_key("paste-from-clipboard").to_string
-  end
-
   def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
 
@@ -92,8 +79,8 @@ class MainFrame < JFrame
     @next_button = create_button(ShowNextGenerationAction, KeyEvent::VK_7)
     panel.add(@next_button)
     panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
-    panel.add(create_button(CopyToClipboardAction,        copy_key))
-    panel.add(create_button(NewGameFromClipboardAction,   paste_key))
+    panel.add(create_button(CopyToClipboardAction,        ClipboardHelper.copy_key_name))
+    panel.add(create_button(NewGameFromClipboardAction,   ClipboardHelper.paste_key_name))
     panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
     panel
   end
@@ -220,7 +207,7 @@ class MainFrame < JFrame
 
     def initialize(table_model)
       super("Copy to Clipboard (C)")
-      put_value(SHORT_DESCRIPTION, "Press #{CLIPBOARD_KEY_PREFIX}-C to copy board contents to clipboard.")
+      put_value(SHORT_DESCRIPTION, "Press #{ClipboardHelper.key_prefix}-C to copy board contents to clipboard.")
       @table_model = table_model
     end
 
@@ -234,15 +221,12 @@ class MainFrame < JFrame
 
     def initialize(table_model)
       super("Paste New Game (V)")
-      put_value(SHORT_DESCRIPTION, "Press #{CLIPBOARD_KEY_PREFIX}-V to create a new game from the clipboard contents.")
+      put_value(SHORT_DESCRIPTION, "Press #{ClipboardHelper.key_prefix}-V to create a new game from the clipboard contents.")
       @table_model = table_model
     end
 
     def actionPerformed(event)
-      clipboard = Toolkit.default_toolkit.system_clipboard
-      transferable = clipboard.getContents(self)
-      model_as_string = transferable.getTransferData(DataFlavor::stringFlavor)
-      new_model = LifeModel.create_from_string(model_as_string)
+      new_model = LifeModel.create_from_string(ClipboardHelper.clipboard_text)
       @table_model.reset_model(new_model)
     end
 
