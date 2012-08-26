@@ -24,9 +24,13 @@ class LifeTableModel < AbstractTableModel
   end
 
   def init(life_model)
+    @current_num_change_handlers = []
+    self.inner_model = life_model
+  end
+
+  def inner_model=(life_model)
     @life_model = life_model
     @generations = Generations.new(life_model)
-    @current_num_change_handlers = []
   end
 
   def getRowCount
@@ -84,6 +88,11 @@ class LifeTableModel < AbstractTableModel
 
   def add_current_num_change_handler(callable)
     @current_num_change_handlers << callable
+  end
+
+  def reset_model(new_model)
+    self.inner_model = new_model
+    fire_table_data_changed
   end
 
   def fire_current_number_changed

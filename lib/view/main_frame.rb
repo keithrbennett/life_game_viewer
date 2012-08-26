@@ -10,6 +10,7 @@ require_relative('../model/life_visualizer')
     java.awt.Frame
     java.awt.GridLayout
     java.awt.Toolkit
+    java.awt.datatransfer.DataFlavor
     java.awt.event.KeyEvent
     javax.swing.AbstractAction
     javax.swing.ImageIcon
@@ -72,6 +73,7 @@ class MainFrame < JFrame
     panel.add(create_button(ShowNextGenerationAction,     KeyEvent::VK_7))
     panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
     panel.add(create_button(CopyToClipboardAction,        KeyEvent::VK_C))
+    panel.add(create_button(NewGameFromClipboardAction,   KeyEvent::VK_N))
     panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
     panel
   end
@@ -204,6 +206,24 @@ class MainFrame < JFrame
 
     def actionPerformed(event)
       LifeVisualizer.new.copy_to_clipboard(@table_model.life_model)
+    end
+
+  end
+
+  class NewGameFromClipboardAction < AbstractAction
+
+    def initialize(table_model)
+      super("Paste New Game (N)")
+      put_value(SHORT_DESCRIPTION, 'Press capital-N to create a new game from the clipboard contents.')
+      @table_model = table_model
+    end
+
+    def actionPerformed(event)
+      clipboard = Toolkit.default_toolkit.system_clipboard
+      transferable = clipboard.getContents(self)
+      model_as_string = transferable.getTransferData(DataFlavor::stringFlavor)
+      new_model = LifeModel.create_from_string(model_as_string)
+      @table_model.reset_model(new_model)
     end
 
   end
