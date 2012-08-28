@@ -51,7 +51,8 @@ class MainFrame < JFrame
   end
 
   def create_table(life_model)
-    @table_model = LifeTableModel.new_instance(life_model)
+    @table_model = LifeTableModel.new(life_model)
+    #@table_model = LifeTableModel.new_instance(life_model)
     table = JTable.new(@table_model)
     table.table_header = nil
     table.show_grid = true

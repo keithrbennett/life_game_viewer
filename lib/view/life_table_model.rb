@@ -11,19 +11,8 @@ class LifeTableModel < AbstractTableModel
   attr_reader :generations  # array of LifeModel's
 
 
-  # This is necessary because of a JRuby bug -- if a Ruby class
-  # with a 1-arg constructor subclasses a Java class with only a
-  # no-arg constructor, then an exception is raised when that
-  # Ruby class is instantiated.
-  # See http://jira.codehaus.org/browse/JRUBY-2457 and
-  # https://gist.github.com/3390231.
-  def self.new_instance(life_model)
-    instance = LifeTableModel.new
-    instance.init(life_model)
-    instance
-  end
-
-  def init(life_model)
+  def initialize(life_model)
+    super()
     @current_num_change_handlers = []
     self.inner_model = life_model
   end
