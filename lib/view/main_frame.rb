@@ -40,7 +40,7 @@ class MainFrame < JFrame
     add(create_header, BorderLayout::NORTH)
     add(create_bottom_panel, BorderLayout::SOUTH)
     get_content_pane.border = BorderFactory.create_empty_border(12, 12, 12, 12)
-    addWindowListener(InitialFocusSettingWindowListener.new(@next_button))
+    add_window_listener(InitialFocusSettingWindowListener.new(@next_button))
     pack
   end
 
@@ -52,7 +52,6 @@ class MainFrame < JFrame
 
   def create_table(life_model)
     @table_model = LifeTableModel.new(life_model)
-    #@table_model = LifeTableModel.new_instance(life_model)
     table = JTable.new(@table_model)
     table.table_header = nil
     table.show_grid = true
