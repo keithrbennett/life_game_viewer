@@ -100,3 +100,9 @@ LifeGameViewer.new(my_model_instance).view  # with an instance of your own model
 # or
 # LifeGameViewer.new.view  # without an arg to see the sample data set
 ```
+
+License
+-------
+
+This software is released under the MIT/X11 license.
+
