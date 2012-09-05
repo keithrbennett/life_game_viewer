@@ -64,24 +64,9 @@ class MainFrame < JFrame
     table
   end
 
-
-  def create_button_panel
-    panel = JPanel.new(GridLayout.new(1, 0))
-
-    panel.add(Button.new(ShowFirstGenerationAction,    KeyEvent::VK_1, table_model))
-    panel.add(Button.new(ShowPreviousGenerationAction, KeyEvent::VK_4, table_model))
-    @next_button = Button.new(ShowNextGenerationAction, KeyEvent::VK_7, table_model)
-    panel.add(@next_button)
-    panel.add(Button.new(ShowLastGenerationAction,     KeyEvent::VK_0, table_model))
-    panel.add(Button.new(CopyToClipboardAction,        ClipboardHelper.copy_key_name, table_model))
-    panel.add(Button.new(NewGameFromClipboardAction,   ClipboardHelper.paste_key_name, table_model))
-    panel.add(Button.new(ExitAction,                   KeyEvent::VK_Q, table_model))
-    panel
-  end
-
   def create_bottom_panel
     panel = JPanel.new(GridLayout.new(0, 1))
-    panel.add(create_button_panel)
+    panel.add(ButtonPanel.new(@table_model))
     panel.add(StatusLabel.new(@table_model))
     panel
   end
@@ -110,6 +95,21 @@ class MainFrame < JFrame
       key = KeyStroke.getKeyStroke(keystroke_text)
       get_input_map(JComponent::WHEN_IN_FOCUSED_WINDOW).put(key, keystroke_text)
       get_action_map.put(keystroke_text, action)
+    end
+  end
+
+
+  class ButtonPanel < JPanel
+
+    def initialize(table_model)
+      super(GridLayout.new(1, 0))
+      add(Button.new(ShowPreviousGenerationAction, KeyEvent::VK_4, table_model))
+      @next_button = Button.new(ShowNextGenerationAction, KeyEvent::VK_7, table_model)
+      add(@next_button)
+      add(Button.new(ShowLastGenerationAction,     KeyEvent::VK_0, table_model))
+      add(Button.new(CopyToClipboardAction,        ClipboardHelper.copy_key_name, table_model))
+      add(Button.new(NewGameFromClipboardAction,   ClipboardHelper.paste_key_name, table_model))
+      add(Button.new(ExitAction,                   KeyEvent::VK_Q, table_model))
     end
   end
 
