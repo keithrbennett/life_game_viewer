@@ -8,7 +8,7 @@ class LifeGameViewer
 
   def sample_start_string
     str = ''
-    20.times { str << ('*-' * 10) << "\n" }
+    12.times { str << ('*-' * 6) << "\n" }
     str
   end
 

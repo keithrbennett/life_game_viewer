@@ -43,14 +43,22 @@ class MainFrame < JFrame
     add(JScrollPane.new(Table.new(table_model)), BorderLayout::CENTER)
     add(HeaderPanel.new, BorderLayout::NORTH)
     add(BottomPanel.new(@table_model, self), BorderLayout::SOUTH)
-    get_content_pane.border = BorderFactory.create_empty_border(12, 12, 12, 12)
+    content_pane.border = BorderFactory.create_empty_border(12, 12, 12, 12)
     pack
   end
 
-  # Change this to a java.awt.Dimension with different values
-  # if you don't want the window to take up the whole screen.
+  # This is the method that Swing will call to ask what size to
+  # attempt to set for this window.
   def getPreferredSize
-    Toolkit.get_default_toolkit.screen_size
+    # use the default size calculation; this would of course also be accomplished
+    # by not implementing the method at all.
+    super
+
+    # Or, you can override it with specific pixel sizes (width, height)
+    # Dimension.new(700, 560)
+
+    # Or, use the line below to make it the full screen size:
+    # Toolkit.get_default_toolkit.screen_size
   end
 end
 
@@ -106,6 +114,7 @@ end
 class ButtonPanel < JPanel
   def initialize(table_model, ancestor_window)
     super(GridLayout.new(1, 0))
+    add(Button.new(ShowFirstGenerationAction, KeyEvent::VK_1, table_model))
     add(Button.new(ShowPreviousGenerationAction, KeyEvent::VK_4, table_model))
 
     next_button = Button.new(ShowNextGenerationAction, KeyEvent::VK_7, table_model)
@@ -126,8 +135,8 @@ class ShowFutureGenerationAction < AbstractAction
   def initialize(table_model, next_or_last)
     @is_next = next_or_last == :next
     caption = @is_next \
-          ? "Next Generation (7)"
-    : "Last Generation (0)"
+        ? "Next (7)"
+        : "Last (0)"
     super(caption)
     @table_model = table_model
     @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_last_generation? }
@@ -167,8 +176,8 @@ class ShowPastGenerationAction < AbstractAction
   def initialize(table_model, previous_or_first)
     @is_previous = previous_or_first == :previous
     caption = @is_previous \
-          ? "Previous Generation (4)"
-    : "First Generation (1)"
+          ? "Previous (4)"
+    : "First (1)"
     super(caption)
 
     @table_model = table_model
@@ -223,7 +232,7 @@ end
 class CopyToClipboardAction < AbstractAction
 
   def initialize(table_model)
-    super("Copy to Clipboard (C)")
+    super("Copy (C)")
     put_value(SHORT_DESCRIPTION, "Press #{ClipboardHelper.key_prefix}-C to copy board contents to clipboard.")
     @table_model = table_model
   end
@@ -239,7 +248,7 @@ end
 class NewGameFromClipboardAction < AbstractAction
 
   def initialize(table_model)
-    super("Paste New Game (V)")
+    super("Paste (V)")
     put_value(SHORT_DESCRIPTION, "Press #{ClipboardHelper.key_prefix}-V to create a new game from the clipboard contents.")
     @table_model = table_model
   end
