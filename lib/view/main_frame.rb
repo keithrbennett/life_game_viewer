@@ -38,10 +38,11 @@ class MainFrame < JFrame
 
   def initialize(life_model)
     super('The Game of Life')
+    @table_model = LifeTableModel.new(life_model)
     self.default_close_operation = JFrame::EXIT_ON_CLOSE
-    add(JScrollPane.new(create_table(life_model)), BorderLayout::CENTER)
-    add(create_header, BorderLayout::NORTH)
-    add(create_bottom_panel, BorderLayout::SOUTH)
+    add(JScrollPane.new(create_table), BorderLayout::CENTER)
+    add(HeaderPanel.new, BorderLayout::NORTH)
+    add(BottomPanel.new(@table_model), BorderLayout::SOUTH)
     get_content_pane.border = BorderFactory.create_empty_border(12, 12, 12, 12)
     add_window_listener(InitialFocusSettingWindowListener.new(@next_button))
     pack
@@ -53,8 +54,7 @@ class MainFrame < JFrame
     Toolkit.get_default_toolkit.screen_size
   end
 
-  def create_table(life_model)
-    @table_model = LifeTableModel.new(life_model)
+  def create_table
     table = JTable.new(@table_model)
     table.table_header = nil
     table.show_grid = true
@@ -64,31 +64,27 @@ class MainFrame < JFrame
     table
   end
 
-  def create_bottom_panel
-    panel = JPanel.new(GridLayout.new(0, 1))
-    panel.add(ButtonPanel.new(@table_model))
-    panel.add(StatusLabel.new(@table_model))
-    panel
+  class BottomPanel < JPanel
+    def initialize(table_model)
+      super(GridLayout.new(0, 1))
+      add(ButtonPanel.new(table_model))
+      add(StatusLabel.new(table_model))
+    end
   end
 
-  def create_header
-    # Use an inner FlowLayout panel embedded in the CENTER of a BorderLayout panel.
-    inner_panel = JPanel.new
-    label = JLabel.new(header_text)
-    inner_panel.add(label)
 
-    panel = JPanel.new(BorderLayout.new)
-    panel.add(inner_panel, BorderLayout::CENTER)
-    panel
-  end
-
-  def header_text
-    "<html><h2>Conway's Game of Life Viewer</h2></html"
+  class HeaderPanel < JPanel
+    def initialize
+      super(BorderLayout.new)
+      label = JLabel.new("<html><h2>Conway's Game of Life Viewer</h2></html")
+      inner_panel = JPanel.new
+      inner_panel.add(label)
+      add(inner_panel, BorderLayout::CENTER)
+    end
   end
 
 
   class Button < JButton
-
     def initialize(action_class, keystroke_text, table_model)
       action = action_class.send(:new, table_model)
       super(action)
@@ -100,7 +96,6 @@ class MainFrame < JFrame
 
 
   class ButtonPanel < JPanel
-
     def initialize(table_model)
       super(GridLayout.new(1, 0))
       add(Button.new(ShowPreviousGenerationAction, KeyEvent::VK_4, table_model))
@@ -139,7 +134,6 @@ class MainFrame < JFrame
 
 
   class ShowNextGenerationAction < ShowFutureGenerationAction
-
     def initialize(table_model)
       super(table_model, :next)
     end
@@ -147,7 +141,6 @@ class MainFrame < JFrame
 
 
   class ShowLastGenerationAction < ShowFutureGenerationAction
-
     def initialize(table_model)
       super(table_model, :last)
     end
@@ -156,7 +149,6 @@ class MainFrame < JFrame
 
   # Used for both previous and first generation buttons.
   class ShowPastGenerationAction < AbstractAction
-
     def initialize(table_model, previous_or_first)
       @is_previous = previous_or_first == :previous
       caption = @is_previous \
@@ -240,7 +232,6 @@ class MainFrame < JFrame
   end
 
   class StatusLabel < JLabel
-
     def initialize(table_model)
       super()
       @update_text = lambda do |current_generation_num|
@@ -257,7 +248,6 @@ class MainFrame < JFrame
   class CellRenderer
 
     class LifeLabel < JLabel
-
       def initialize
         super
         self.horizontal_alignment = JLabel::CENTER
@@ -296,4 +286,3 @@ class InitialFocusSettingWindowListener < WindowAdapter
     @component_requesting_focus.requestFocus
   end
 end
-
