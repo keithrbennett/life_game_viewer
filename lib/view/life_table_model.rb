@@ -1,14 +1,16 @@
 require 'java'
+
 java_import javax.swing.table.AbstractTableModel
 java_import javax.swing.JOptionPane
 
 require_relative 'generations'
 
-
+# This class is the model used to drive Swing's JTable.
+# It contains a LifeModel to which it delegates most calls.
 class LifeTableModel < AbstractTableModel
 
   attr_accessor :life_model
-  attr_reader :generations  # array of LifeModel's
+  attr_reader :generations
 
 
   def initialize(life_model)

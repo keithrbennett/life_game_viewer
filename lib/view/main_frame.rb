@@ -1,3 +1,6 @@
+# This file contains the definitions of all the Swing UI component
+# classes.  The one containing all the rest is the MainFrame class.
+
 require 'java'
 
 require_relative '../model/life_visualizer'
@@ -61,26 +64,18 @@ class MainFrame < JFrame
     table
   end
 
-  def create_button(action_class, keystroke_text)
-    action = action_class.send(:new, @table_model)
-    button = JButton.new(action)
-    key = KeyStroke.getKeyStroke(keystroke_text)
-    button.get_input_map(JComponent::WHEN_IN_FOCUSED_WINDOW).put(key, keystroke_text)
-    button.get_action_map.put(keystroke_text, action)
-    button
-  end
 
   def create_button_panel
     panel = JPanel.new(GridLayout.new(1, 0))
 
-    panel.add(create_button(ShowFirstGenerationAction,    KeyEvent::VK_1))
-    panel.add(create_button(ShowPreviousGenerationAction, KeyEvent::VK_4))
-    @next_button = create_button(ShowNextGenerationAction, KeyEvent::VK_7)
+    panel.add(Button.new(ShowFirstGenerationAction,    KeyEvent::VK_1, table_model))
+    panel.add(Button.new(ShowPreviousGenerationAction, KeyEvent::VK_4, table_model))
+    @next_button = Button.new(ShowNextGenerationAction, KeyEvent::VK_7, table_model)
     panel.add(@next_button)
-    panel.add(create_button(ShowLastGenerationAction,     KeyEvent::VK_0))
-    panel.add(create_button(CopyToClipboardAction,        ClipboardHelper.copy_key_name))
-    panel.add(create_button(NewGameFromClipboardAction,   ClipboardHelper.paste_key_name))
-    panel.add(create_button(ExitAction,                   KeyEvent::VK_Q))
+    panel.add(Button.new(ShowLastGenerationAction,     KeyEvent::VK_0, table_model))
+    panel.add(Button.new(CopyToClipboardAction,        ClipboardHelper.copy_key_name, table_model))
+    panel.add(Button.new(NewGameFromClipboardAction,   ClipboardHelper.paste_key_name, table_model))
+    panel.add(Button.new(ExitAction,                   KeyEvent::VK_Q, table_model))
     panel
   end
 
@@ -104,6 +99,18 @@ class MainFrame < JFrame
 
   def header_text
     "<html><h2>Conway's Game of Life Viewer</h2></html"
+  end
+
+
+  class Button < JButton
+
+    def initialize(action_class, keystroke_text, table_model)
+      action = action_class.send(:new, table_model)
+      super(action)
+      key = KeyStroke.getKeyStroke(keystroke_text)
+      get_input_map(JComponent::WHEN_IN_FOCUSED_WINDOW).put(key, keystroke_text)
+      get_action_map.put(keystroke_text, action)
+    end
   end
 
 
