@@ -2,6 +2,16 @@
 # and the next generation.  Generally, 'next_generation' will be the
 # only method that will need to be called, but the others are provided
 # publicly, since the Game of Life is all about experimentation.
+#
+# See Wikipedia for more information about Conway's Game of Life.
+#
+# Rules distilled:
+#
+# 1) Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+# 2) Any live cell with two or three live neighbours lives on to the next generation.
+# 3) Any live cell with more than three live neighbours dies, as if by overcrowding.
+# 4) Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+
 class LifeCalculator
 
   # Returns a new model with the next generation's data.

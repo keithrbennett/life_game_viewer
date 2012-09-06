@@ -5,6 +5,16 @@ require_relative "life_calculator"
 #
 # All public methods here should be responded to in alternate
 # model implementations.
+#
+# See Wikipedia for more information about Conway's Game of Life.
+#
+# Rules distilled:
+#
+# 1) Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+# 2) Any live cell with two or three live neighbours lives on to the next generation.
+# 3) Any live cell with more than three live neighbours dies, as if by overcrowding.
+# 4) Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+
 class LifeModel
   
   attr_accessor :data
