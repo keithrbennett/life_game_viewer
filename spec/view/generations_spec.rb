@@ -12,12 +12,6 @@ describe Generations do
     generations = Generations.new(life_model)
     generations.current.should == life_model
     generations.current_num.should == 0
-    generations.at_last_generation?.should be_true
-  end
-
-  it "should calculate last generation correctly" do
-    Generations.new(LifeModel.create_from_string"**\n**")
-    pending
   end
 
 end

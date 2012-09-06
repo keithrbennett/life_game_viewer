@@ -1,10 +1,13 @@
 java_import 'java.awt.datatransfer.StringSelection'
 java_import 'java.awt.datatransfer.DataFlavor'
+java_import 'java.awt.datatransfer.ClipboardOwner'
 java_import 'java.awt.Toolkit'
 
 
 # Simplifies the use of the system clipboard access via Java.
 class ClipboardHelper
+
+  include ClipboardOwner
 
   def self.clipboard
     Toolkit.default_toolkit.system_clipboard
@@ -45,7 +48,7 @@ class ClipboardHelper
     input_action_key("paste-from-clipboard").to_string
   end
 
-  def lostOwnership
+  def self.lostOwnership(clipboard, contents)
     # do nothing; this method called by Java when this object loses ownership
     # of the clipboard.
   end

@@ -1,6 +1,7 @@
 class Generations < Array
 
-  attr_reader :current_num, :last_num
+  attr_reader :last_num
+  attr_accessor :current_num
 
   def initialize(life_model)
     self << life_model
@@ -11,10 +12,6 @@ class Generations < Array
 
   def current
     self[current_num]
-  end
-
-  def current_num=(new_num)
-    @current_num = new_num
   end
 
   def found_last_generation?
