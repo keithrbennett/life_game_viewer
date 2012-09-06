@@ -6,8 +6,9 @@ require 'java'
 require_relative '../model/life_visualizer'
 require_relative 'actions'
 
+
 # Java Imports:
-%w(
+java_import %w(
     java.awt.BorderLayout
     java.awt.Color
     java.awt.Desktop
@@ -32,7 +33,7 @@ require_relative 'actions'
     javax.swing.KeyStroke
     javax.swing.UIManager
     javax.swing.table.TableCellRenderer
-).each { |java_class| java_import(java_class)}
+)
 
 
 class MainFrame < JFrame

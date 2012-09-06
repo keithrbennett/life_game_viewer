@@ -4,9 +4,9 @@ require_relative 'clipboard_helper'
 
 
 # Java Imports:
-%w(
+java_import %w(
     javax.swing.AbstractAction
-).each { |java_class| java_import(java_class)}
+)
 
 
 # Generation Move Actions.  Class hierarchy is:
