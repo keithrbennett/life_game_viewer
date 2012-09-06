@@ -155,18 +155,52 @@ end
 
 
 
-class ShowFutureGenerationAction < AbstractAction
 
+class MoveAction < AbstractAction
   def initialize(table_model)
     super(caption)  # caption implemented by subclasses
     @table_model = table_model
-    @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_last_generation? }
-    @table_model.add_current_num_change_handler(@enabled_updater)
+
+    # should_be_enabled? below needs to be implemented by subclasses
+    enabled_updater = lambda do |current_generation_num|
+      self.enabled = should_be_enabled?
+    end
+
+    @table_model.add_current_num_change_handler(enabled_updater)
+
+    self.enabled = enabled_updater.call(nil)
   end
 
   def actionPerformed(event)
     move  # implemented by subclasses
     @table_model.fire_table_data_changed
+  end
+
+end
+
+
+
+class ShowFutureGenerationAction < MoveAction
+
+  def initialize(table_model)
+    super(table_model)  # caption implemented by subclasses
+  end
+
+  def should_be_enabled?
+    ! @table_model.at_last_generation?
+  end
+end
+
+
+
+class ShowPastGenerationAction < MoveAction
+
+  def initialize(table_model)
+    super(table_model)  # caption implemented by subclasses
+  end
+
+  def should_be_enabled?
+    ! @table_model.at_first_generation?
   end
 end
 
@@ -204,23 +238,6 @@ end
 
 
 
-# Used for both previous and first generation buttons.
-class ShowPastGenerationAction < AbstractAction
-  def initialize(table_model)
-    super(caption)  # caption implemented by subclasses
-    @table_model = table_model
-    @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
-    @table_model.add_current_num_change_handler(@enabled_updater)
-    self.enabled = false  # we're already at the first generation
-  end
-
-  def actionPerformed(event)
-    move  # implemented by subclasses
-    @table_model.fire_table_data_changed
-  end
-end
-
-
 
 class ShowPreviousGenerationAction < ShowPastGenerationAction
   def initialize(table_model)
@@ -235,6 +252,7 @@ class ShowPreviousGenerationAction < ShowPastGenerationAction
     "Previous (4)"
   end
 end
+
 
 
 
