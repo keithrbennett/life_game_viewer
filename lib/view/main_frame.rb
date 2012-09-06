@@ -84,31 +84,11 @@ end
 # Combines button panel and bottom text panel into a single panel.
 class BottomPanel < JPanel
   def initialize(table_model, ancestor_window)
-    super(GridLayout.new(0, 1))
+    layout = GridLayout.new(0, 1)
+    super(layout)
+    layout.vgap = 12
     add(ButtonPanel.new(table_model, ancestor_window))
-    add(Box.createVerticalStrut(1))
-    add(BottomTextPanel.new(table_model))
-  end
-end
-
-
-# Panel displayed at bottom of window with status message and clickable
-# links to go to application's Github page and blog article.
-class BottomTextPanel < JPanel
-  def initialize(table_model)
-    super(BorderLayout.new(0, 1))
-
-    github_label = HyperlinkLabel.new(
-        'http://github.com/keithrbennett/life-game-viewer',
-        "On Github")
-    add(github_label, BorderLayout::WEST)
-
-    add(StatusLabel.new(table_model), BorderLayout::CENTER)
-
-    blog_label = HyperlinkLabel.new(
-        'http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/',
-        'Article')
-    add(blog_label, BorderLayout::EAST)
+    add(StatusAndLinksPanel.new(table_model))
   end
 end
 
@@ -225,10 +205,10 @@ end
 # c) sets the tooltip text to be the URL.
 class HyperlinkLabel < JLabel
 
-  def initialize(url, caption)
+  def initialize(url, caption, tool_tip_text)
     text = "<html><a href=#{url}>#{caption}</a></html>"  # make it appear like a hyperlink
     super(text)
-    self.tool_tip_text = url
+    self.tool_tip_text = tool_tip_text
     add_mouse_listener(ClickAdapter.new(url))
   end
 
@@ -246,3 +226,47 @@ class HyperlinkLabel < JLabel
 end
 
 
+class LinkPanel < JPanel
+
+  def initialize
+
+    #Without the call to super below, I get the following error:
+    #RuntimeError: Java wrapper with no contents: LinkPanel
+    #see http://jira.codehaus.org/browse/JRUBY-4704; not fixed?
+    super
+
+    add(wikipedia_label)
+    add(JLabel.new(" | "))
+    add(github_label)
+    add(JLabel.new(" | "))
+    add(article_label)
+  end
+
+  def wikipedia_label
+    url = 'http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'
+    HyperlinkLabel.new(url, "Wikipedia",
+        "Visit Conway's Game of Life page on Wikipedia at #{url}.")
+  end
+
+  def github_label
+    url = 'http://github.com/keithrbennett/life-game-viewer'
+    HyperlinkLabel.new(url, "Github",
+        "Visit the Github page for this project at #{url}.")
+  end
+
+  def article_label
+    url = 'http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/'
+    HyperlinkLabel.new(url, "Article",
+        "Visit the blog article about this project at #{url}.")
+  end
+end
+
+
+
+class StatusAndLinksPanel < JPanel
+  def initialize(table_model)
+    super(BorderLayout.new)
+    add(StatusLabel.new(table_model), BorderLayout::WEST)
+    add(LinkPanel.new, BorderLayout::EAST)
+  end
+end
