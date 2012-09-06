@@ -67,6 +67,7 @@ end
 
 
 
+# The application's table, containing alive/dead board values.
 class Table < JTable
   def initialize(table_model)
     super(table_model)
@@ -80,6 +81,7 @@ end
 
 
 
+# Combines button panel and bottom text panel into a single panel.
 class BottomPanel < JPanel
   def initialize(table_model, ancestor_window)
     super(GridLayout.new(0, 1))
@@ -90,7 +92,8 @@ class BottomPanel < JPanel
 end
 
 
-
+# Panel displayed at bottom of window with status message and clickable
+# links to go to application's Github page and blog article.
 class BottomTextPanel < JPanel
   def initialize(table_model)
     super(BorderLayout.new(0, 1))
@@ -110,7 +113,7 @@ class BottomTextPanel < JPanel
 end
 
 
-
+# Panel for top of main application window containing a large title.
 class HeaderPanel < JPanel
   def initialize
     super(BorderLayout.new)
@@ -122,7 +125,8 @@ class HeaderPanel < JPanel
 end
 
 
-
+# Subclassed by application buttons, contains their common functionality
+# added to the Swing JButton class.
 class Button < JButton
   def initialize(action_class, keystroke_text, table_model)
     action = action_class.send(:new, table_model)
@@ -134,7 +138,7 @@ class Button < JButton
 end
 
 
-
+# Panel containing horizontal row of buttons.
 class ButtonPanel < JPanel
   def initialize(table_model, ancestor_window)
     super(GridLayout.new(1, 0))
@@ -154,13 +158,13 @@ end
 
 
 
-
+# Status label showing, e.g. "Current Generation: 1, Population: 42"
 class StatusLabel < JLabel
   def initialize(table_model)
     super()
     @update_text = lambda do |current_generation_num|
       last_fragment = table_model.at_last_generation? ? " (last)" : ""
-      self.text = "Current generation#{last_fragment}: #{current_generation_num}, Population: #{table_model.number_living}"
+      self.text = "Current Generation#{last_fragment}: #{current_generation_num}, Population: #{table_model.number_living}"
     end
     @update_text.call(0)
     self.horizontal_alignment = JLabel::CENTER
@@ -169,7 +173,9 @@ class StatusLabel < JLabel
 end
 
 
-
+# This class is responsible for rendering the display of a table cell,
+# which in our case is to display an image of Alfred E. Neuman if the
+# underlying data value is true, else display nothing.
 class CellRenderer
 
   class LifeLabel < JLabel
@@ -198,7 +204,8 @@ class CellRenderer
 end
 
 
-
+# When added as a listener to a given window, will cause the
+# passed component to own focus when the window first opens.
 class InitialFocusSettingWindowListener < WindowAdapter
 
   def initialize(component_requesting_focus)
@@ -213,6 +220,9 @@ end
 
 
 
+# JLabel that a) provides a clickable link that launches the default browser
+# with the passed URL, b) makes the text appear like a hyperlink, and
+# c) sets the tooltip text to be the URL.
 class HyperlinkLabel < JLabel
 
   def initialize(url, caption)

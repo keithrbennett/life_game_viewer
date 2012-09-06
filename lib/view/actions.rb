@@ -9,6 +9,17 @@ require_relative 'clipboard_helper'
 ).each { |java_class| java_import(java_class)}
 
 
+# Generation Move Actions.  Class hierarchy is:
+#
+# MoveAction
+# -- ShowPastGenerationAction
+# -- -- ShowFirstGenerationAction
+# -- -- ShowPreviousGenerationAction
+# -- ShowFutureGenerationAction
+# -- -- ShowNextGenerationAction
+# -- -- ShowLastGenerationAction
+
+
 class MoveAction < AbstractAction
 
   def initialize(table_model)
@@ -33,6 +44,7 @@ end
 
 
 
+
 class ShowFutureGenerationAction < MoveAction
 
   def initialize(table_model)
@@ -46,6 +58,7 @@ end
 
 
 
+
 class ShowPastGenerationAction < MoveAction
 
   def initialize(table_model)
@@ -56,6 +69,7 @@ class ShowPastGenerationAction < MoveAction
     ! @table_model.at_first_generation?
   end
 end
+
 
 
 
@@ -73,6 +87,7 @@ class ShowNextGenerationAction < ShowFutureGenerationAction
     "Next (7)"
   end
 end
+
 
 
 
@@ -129,6 +144,7 @@ end
 
 
 
+
 class ExitAction < AbstractAction
 
   # table_model param not used but needed for instantiation by create_button
@@ -141,6 +157,7 @@ class ExitAction < AbstractAction
     java.lang.System.exit(0)
   end
 end
+
 
 
 
@@ -157,6 +174,7 @@ class CopyToClipboardAction < AbstractAction
     ClipboardHelper.clipboard_text = text
   end
 end
+
 
 
 
