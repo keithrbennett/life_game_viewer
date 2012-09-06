@@ -1,6 +1,8 @@
 require 'rspec'
-require_relative 'spec_helper'
-require 'life_model'
+
+require_relative '../spec_helper'
+
+require 'model/life_model'
 
 describe LifeModel do
 
@@ -11,11 +13,11 @@ describe LifeModel do
   end
   
   it "should have 12 rows" do
-    subject.row_count.should equal 12
+    subject.row_count.should == 12
   end
   
   it "should have 20 columns" do
-    subject.column_count.should equal 20
+    subject.column_count.should == 20
   end
   
   it "should have all rows default to false" do
@@ -86,9 +88,5 @@ describe LifeModel do
     model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
     model2 = LifeModel.create_from_string("*****\n--*--\n*-*-*")
     model1.should_not == model2
-  end
-
-  it "should initialize identically with constructor and class method" do
-    LifeModel.create_with_row_and_column_count(3, 4).should == LifeModel.new(3, 4)
   end
 end

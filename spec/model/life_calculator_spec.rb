@@ -1,7 +1,7 @@
-require_relative 'spec_helper'
+require_relative '../spec_helper'
 
-require 'life_calculator'
-require 'life_visualizer'
+require 'model/life_calculator'
+require 'model/life_visualizer'
 
 describe LifeCalculator do
 

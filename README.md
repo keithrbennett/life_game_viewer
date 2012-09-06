@@ -101,6 +101,9 @@ LifeGameViewer.new(my_model_instance).view  # with an instance of your own model
 # LifeGameViewer.new.view  # without an arg to see the sample data set
 ```
 
+However, this would make replacing the sample implementation with your own
+more difficult, so it's probably better to just download the code base.
+
 License
 -------
 

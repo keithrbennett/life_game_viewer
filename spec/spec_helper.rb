@@ -1,1 +1,1 @@
-$LOAD_PATH.unshift '../lib'
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
