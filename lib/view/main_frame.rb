@@ -10,12 +10,15 @@ require_relative 'clipboard_helper'
 %w(
     java.awt.BorderLayout
     java.awt.Color
+    java.awt.Desktop
     java.awt.Dimension
     java.awt.Frame
     java.awt.GridLayout
     java.awt.Toolkit
     java.awt.event.KeyEvent
+    java.awt.event.MouseAdapter
     java.awt.event.WindowAdapter
+    java.net.URI
     javax.swing.AbstractAction
     javax.swing.BorderFactory
     javax.swing.ImageIcon
@@ -82,6 +85,7 @@ class BottomPanel < JPanel
     super(GridLayout.new(0, 1))
     add(ButtonPanel.new(table_model, ancestor_window))
     add(StatusLabel.new(table_model))
+    add(CreditsPanel.new)
   end
 end
 
@@ -316,3 +320,45 @@ class InitialFocusSettingWindowListener < WindowAdapter
     @component_requesting_focus.requestFocus
   end
 end
+
+
+class CreditsPanel < JPanel
+  def initialize
+    super(BorderLayout.new)
+
+    github_label = HyperlinkLabel.new(
+        'http://github.com/keithrbennett/life-game-viewer',
+        "Life Game Viewer on Github")
+    add(github_label, BorderLayout::WEST)
+
+    blog_label = HyperlinkLabel.new(
+        'http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/',
+        'Life Game Viewer Blog Article')
+    add(blog_label, BorderLayout::EAST)
+  end
+end
+
+
+class HyperlinkLabel < JLabel
+
+  def initialize(url, caption)
+    text = "<html><a href=#{url}>#{caption}</a></html>"  # make it appear like a hyperlink
+    super(text)
+    self.tool_tip_text = url
+    add_mouse_listener(ClickAdapter.new(url))
+  end
+
+  class ClickAdapter < MouseAdapter
+
+    def initialize(url)
+      super()
+      @url = url
+    end
+
+    def mouseClicked(event)
+      Desktop.desktop.browse(URI.new(@url))
+    end
+  end
+end
+
+
