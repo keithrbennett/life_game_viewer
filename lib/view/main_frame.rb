@@ -21,6 +21,7 @@ require_relative 'clipboard_helper'
     java.net.URI
     javax.swing.AbstractAction
     javax.swing.BorderFactory
+    javax.swing.Box
     javax.swing.ImageIcon
     javax.swing.JButton
     javax.swing.JComponent
@@ -84,8 +85,27 @@ class BottomPanel < JPanel
   def initialize(table_model, ancestor_window)
     super(GridLayout.new(0, 1))
     add(ButtonPanel.new(table_model, ancestor_window))
-    add(StatusLabel.new(table_model))
-    add(CreditsPanel.new)
+    add(Box.createVerticalStrut(1))
+    add(BottomTextPanel.new(table_model))
+  end
+end
+
+
+class BottomTextPanel < JPanel
+  def initialize(table_model)
+    super(BorderLayout.new(0, 1))
+
+    github_label = HyperlinkLabel.new(
+        'http://github.com/keithrbennett/life-game-viewer',
+        "On Github")
+    add(github_label, BorderLayout::WEST)
+
+    add(StatusLabel.new(table_model), BorderLayout::CENTER)
+
+    blog_label = HyperlinkLabel.new(
+        'http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/',
+        'Article')
+    add(blog_label, BorderLayout::EAST)
   end
 end
 
@@ -180,8 +200,8 @@ class ShowPastGenerationAction < AbstractAction
   def initialize(table_model, previous_or_first)
     @is_previous = previous_or_first == :previous
     caption = @is_previous \
-          ? "Previous (4)"
-    : "First (1)"
+        ? "Previous (4)"
+        : "First (1)"
     super(caption)
 
     @table_model = table_model
@@ -269,7 +289,7 @@ class StatusLabel < JLabel
   def initialize(table_model)
     super()
     @update_text = lambda do |current_generation_num|
-      last_fragment = table_model.at_last_generation? ? " (Last)" : ""
+      last_fragment = table_model.at_last_generation? ? " (last)" : ""
       self.text = "Current generation#{last_fragment}: #{current_generation_num}, Population: #{table_model.number_living}"
     end
     @update_text.call(0)
@@ -321,22 +341,6 @@ class InitialFocusSettingWindowListener < WindowAdapter
   end
 end
 
-
-class CreditsPanel < JPanel
-  def initialize
-    super(BorderLayout.new)
-
-    github_label = HyperlinkLabel.new(
-        'http://github.com/keithrbennett/life-game-viewer',
-        "Life Game Viewer on Github")
-    add(github_label, BorderLayout::WEST)
-
-    blog_label = HyperlinkLabel.new(
-        'http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/',
-        'Life Game Viewer Blog Article')
-    add(blog_label, BorderLayout::EAST)
-  end
-end
 
 
 class HyperlinkLabel < JLabel
