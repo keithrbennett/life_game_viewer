@@ -45,20 +45,6 @@ end
 
 
 
-class ShowFutureGenerationAction < MoveAction
-
-  def initialize(table_model)
-    super(table_model)  # caption implemented by subclasses
-  end
-
-  def should_be_enabled?
-    ! @table_model.at_last_generation?
-  end
-end
-
-
-
-
 class ShowPastGenerationAction < MoveAction
 
   def initialize(table_model)
@@ -67,6 +53,56 @@ class ShowPastGenerationAction < MoveAction
 
   def should_be_enabled?
     ! @table_model.at_first_generation?
+  end
+end
+
+
+
+
+class ShowFirstGenerationAction < ShowPastGenerationAction
+
+  def initialize(table_model)
+    super(table_model)
+  end
+
+  def move
+    @table_model.go_to_first_generation
+  end
+
+  def caption
+    "First (1)"
+  end
+end
+
+
+
+
+class ShowPreviousGenerationAction < ShowPastGenerationAction
+
+  def initialize(table_model)
+    super(table_model)
+  end
+
+  def move
+    @table_model.go_to_previous_generation
+  end
+
+  def caption
+    "Previous (4)"
+  end
+end
+
+
+
+
+class ShowFutureGenerationAction < MoveAction
+
+  def initialize(table_model)
+    super(table_model)  # caption implemented by subclasses
+  end
+
+  def should_be_enabled?
+    ! @table_model.at_last_generation?
   end
 end
 
@@ -103,42 +139,6 @@ class ShowLastGenerationAction < ShowFutureGenerationAction
 
   def caption
     "Last (0)"
-  end
-end
-
-
-
-
-class ShowPreviousGenerationAction < ShowPastGenerationAction
-
-  def initialize(table_model)
-    super(table_model)
-  end
-
-  def move
-    @table_model.go_to_previous_generation
-  end
-
-  def caption
-    "Previous (4)"
-  end
-end
-
-
-
-
-class ShowFirstGenerationAction < ShowPastGenerationAction
-
-  def initialize(table_model)
-    super(table_model)
-  end
-
-  def move
-    @table_model.go_to_first_generation
-  end
-
-  def caption
-    "First (1)"
   end
 end
 
