@@ -206,13 +206,8 @@ end
 
 # Used for both previous and first generation buttons.
 class ShowPastGenerationAction < AbstractAction
-  def initialize(table_model, previous_or_first)
-    @is_previous = previous_or_first == :previous
-    caption = @is_previous \
-        ? "Previous (4)"
-        : "First (1)"
-    super(caption)
-
+  def initialize(table_model)
+    super(caption)  # caption implemented by subclasses
     @table_model = table_model
     @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_first_generation? }
     @table_model.add_current_num_change_handler(@enabled_updater)
@@ -220,11 +215,7 @@ class ShowPastGenerationAction < AbstractAction
   end
 
   def actionPerformed(event)
-    if @is_previous
-      @table_model.go_to_previous_generation
-    else
-      @table_model.go_to_first_generation
-    end
+    move  # implemented by subclasses
     @table_model.fire_table_data_changed
   end
 end
@@ -233,7 +224,15 @@ end
 
 class ShowPreviousGenerationAction < ShowPastGenerationAction
   def initialize(table_model)
-    super(table_model, :previous)
+    super(table_model)
+  end
+
+  def move
+    @table_model.go_to_previous_generation
+  end
+
+  def caption
+    "Previous (4)"
   end
 end
 
@@ -241,7 +240,15 @@ end
 
 class ShowFirstGenerationAction < ShowPastGenerationAction
   def initialize(table_model)
-    super(table_model, :first)
+    super(table_model)
+  end
+
+  def move
+    @table_model.go_to_first_generation
+  end
+
+  def caption
+    "First (1)"
   end
 end
 
