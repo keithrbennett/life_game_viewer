@@ -91,6 +91,7 @@ class BottomPanel < JPanel
 end
 
 
+
 class BottomTextPanel < JPanel
   def initialize(table_model)
     super(BorderLayout.new(0, 1))
@@ -156,23 +157,15 @@ end
 
 class ShowFutureGenerationAction < AbstractAction
 
-  def initialize(table_model, next_or_last)
-    @is_next = next_or_last == :next
-    caption = @is_next \
-        ? "Next (7)"
-        : "Last (0)"
-    super(caption)
+  def initialize(table_model)
+    super(caption)  # caption implemented by subclasses
     @table_model = table_model
     @enabled_updater = lambda { |current_generation_num| self.enabled = ! @table_model.at_last_generation? }
     @table_model.add_current_num_change_handler(@enabled_updater)
   end
 
   def actionPerformed(event)
-    if @is_next
-      @table_model.go_to_next_generation
-    else
-      @table_model.go_to_last_generation
-    end
+    move  # implemented by subclasses
     @table_model.fire_table_data_changed
   end
 end
@@ -181,7 +174,15 @@ end
 
 class ShowNextGenerationAction < ShowFutureGenerationAction
   def initialize(table_model)
-    super(table_model, :next)
+    super(table_model)
+  end
+
+  def move
+    @table_model.go_to_next_generation
+  end
+
+  def caption
+    "Next (7)"
   end
 end
 
@@ -189,7 +190,15 @@ end
 
 class ShowLastGenerationAction < ShowFutureGenerationAction
   def initialize(table_model)
-    super(table_model, :last)
+    super(table_model)
+  end
+
+  def move
+    @table_model.go_to_last_generation
+  end
+
+  def caption
+    "Last (0)"
   end
 end
 
