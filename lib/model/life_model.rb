@@ -32,7 +32,7 @@ class LifeModel
     row_count = string.chomp.count("\n") + 1
     lines = string.split("\n")
     col_count = lines.first.size
-    model = LifeModel.new(row_count, col_count)
+    model = self.new(row_count, col_count)
     (0...row_count).each do |row|
       line = lines[row]
       (0...(line.size)).each do |col|
@@ -76,7 +76,7 @@ class LifeModel
   end
 
   def ==(other)
-    other.is_a?(LifeModel)             &&
+    other.is_a?(self.class)            &&
     other.row_count == row_count       &&
     other.column_count == column_count &&
     other.data == data

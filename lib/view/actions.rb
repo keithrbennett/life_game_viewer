@@ -187,7 +187,7 @@ class NewGameFromClipboardAction < AbstractAction
   end
 
   def actionPerformed(event)
-    new_model = LifeModel.create_from_string(ClipboardHelper.clipboard_text)
+    new_model = @table_model.life_model.class.send(:create_from_string, ClipboardHelper.clipboard_text)
     @table_model.reset_model(new_model)
   end
 end
