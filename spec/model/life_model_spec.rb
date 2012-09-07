@@ -2,14 +2,14 @@ require 'rspec'
 
 require_relative '../spec_helper'
 
-require 'model/life_model'
+require 'model/life_model_sample_implementation'
 
-describe LifeModel do
+describe LifeModelSampleImplementation do
 
-  subject { LifeModel.new(12, 20) }
+  subject { LifeModelSampleImplementation.new(12, 20) }
 
-  it "should be a LifeModel" do
-    subject.should be_a LifeModel
+  it "should be a LifeModelSampleImplementation" do
+    subject.should be_a LifeModelSampleImplementation
   end
   
   it "should have 12 rows" do
@@ -42,7 +42,7 @@ describe LifeModel do
   end
 
   it "should set living state correctly using set_living_states" do
-    model = LifeModel.new(3, 3)
+    model = LifeModelSampleImplementation.new(3, 3)
     cells_to_set_alive = [[0,0], [1,1], [2,2]]
     model.set_living_states(cells_to_set_alive, true)
     cells_to_set_alive.all? do |tuple|
@@ -54,7 +54,7 @@ describe LifeModel do
 
   it "should create a model from a string" do
     s = "*.\n.*\n.."
-    model = LifeModel.create_from_string(s);
+    model = LifeModelSampleImplementation.create_from_string(s);
 
     model.row_count.should == 3
     model.column_count.should == 2
@@ -67,26 +67,26 @@ describe LifeModel do
 
   it "should be considered == correctly" do
     model_string = "*****\n-----\n*-*-*"
-    model1 = LifeModel.create_from_string(model_string)
-    model2 = LifeModel.create_from_string(model_string)
+    model1 = LifeModelSampleImplementation.create_from_string(model_string)
+    model2 = LifeModelSampleImplementation.create_from_string(model_string)
     model1.should == model2
   end
 
   it "should be considered != when row count is different" do
-    model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
-    model2 = LifeModel.create_from_string("*****\n-----")
+    model1 = LifeModelSampleImplementation.create_from_string("*****\n-----\n*-*-*")
+    model2 = LifeModelSampleImplementation.create_from_string("*****\n-----")
     model1.should_not == model2
   end
 
   it "should be considered != when column count is different" do
-    model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
-    model2 = LifeModel.create_from_string("****\n----\n*-*-")
+    model1 = LifeModelSampleImplementation.create_from_string("*****\n-----\n*-*-*")
+    model2 = LifeModelSampleImplementation.create_from_string("****\n----\n*-*-")
     model1.should_not == model2
   end
 
   it "should be considered != when an alive flag is different" do
-    model1 = LifeModel.create_from_string("*****\n-----\n*-*-*")
-    model2 = LifeModel.create_from_string("*****\n--*--\n*-*-*")
+    model1 = LifeModelSampleImplementation.create_from_string("*****\n-----\n*-*-*")
+    model2 = LifeModelSampleImplementation.create_from_string("*****\n--*--\n*-*-*")
     model1.should_not == model2
   end
 end

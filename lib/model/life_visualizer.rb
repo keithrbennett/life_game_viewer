@@ -1,6 +1,4 @@
 # Manages the string display of a life model.
-require_relative 'life_model'
-
 
 class LifeVisualizer
 
