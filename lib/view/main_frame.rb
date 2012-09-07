@@ -4,6 +4,7 @@
 require 'java'
 
 require_relative '../model/life_visualizer'
+require_relative '../model/model_validation'
 require_relative 'actions'
 
 
@@ -41,6 +42,11 @@ class MainFrame < JFrame
   attr_accessor :table_model
 
   def initialize(life_model)
+    model_validation_message = ModelValidation.new.methods_missing_message(life_model)
+    if model_validation_message
+      raise model_validation_message
+    end
+
     super('The Game of Life')
     @table_model = LifeTableModel.new(life_model)
     self.default_close_operation = JFrame::EXIT_ON_CLOSE
