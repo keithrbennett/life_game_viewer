@@ -1,7 +1,6 @@
 require 'rspec'
 require_relative '../spec_helper'
 
-# Fix so that it's not necessary to specify relative path.
 require 'view/generations'
 require 'model/sample_life_model'
 
@@ -14,5 +13,7 @@ describe Generations do
     generations.current_num.should == 0
   end
 
+  # It's difficult to come up with tests for this class that don't really
+  # test the underlying model's next generation calculation.
 end
 
