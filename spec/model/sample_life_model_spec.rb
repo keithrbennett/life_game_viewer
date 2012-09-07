@@ -89,4 +89,20 @@ describe SampleLifeModel do
     model2 = SampleLifeModel.create_from_string("*****\n--*--\n*-*-*")
     model1.should_not == model2
   end
+
+  it "should be able to use a passed block to initialize all cells to true" do
+    model = SampleLifeModel.create(3, 3) { |row, col| true }
+    model.number_living.should == 9
+  end
+
+  it "should be able to use a passed block to initialize all cells to false" do
+    model = SampleLifeModel.create(3, 3) { |row, col| false }
+    model.number_living.should == 0
+  end
+
+  it "should be able to use a passed block to set only 1,2 to true" do
+    model = SampleLifeModel.create(3, 3) { |row, col| row == 1 && col == 2 }
+    (model.number_living.should == 1 && model.alive?(1, 2)).should be_true
+  end
+
 end
