@@ -11,21 +11,23 @@ describe ModelValidation do
     subject.methods_missing_message(model).should be_nil
   end
 
-  it "should correctly detect the absence of the first required class method" do
+  it "should correctly detect the absence of all instance methods" do
     model = Object.new
-    first_required_class_method = subject.required_class_methods.first
-    regexp = Regexp.new(first_required_class_method.to_s)
     message = subject.methods_missing_message(model)
-    message.should match(regexp)
+    all_are_detected = subject.required_instance_methods.all? do |method|
+      message.include?(method.to_s)
+    end
+    all_are_detected.should be_true
   end
 
-  it "should correctly detect the absence of the last required instance method" do
+  it "should correctly detect the absence of all class methods" do
     model = Object.new
-    last_required_instance_method = subject.required_class_methods.first
-    regexp = Regexp.new(last_required_instance_method.to_s)
     message = subject.methods_missing_message(model)
-    message.should match(regexp)
+    all_are_detected = subject.required_class_methods.all? do |method|
+      message.include?('self.' + method.to_s)
+    end
+    all_are_detected.should be_true
   end
-
 
 end
+
