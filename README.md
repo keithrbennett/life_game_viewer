@@ -76,6 +76,15 @@ want, even using the LifeModel as a minimal adapter to a completely
 different design. A LifeModel skeleton file is provided in the
 lib/model directory for this purpose.
 
+For example, assuming you have installed Life Game Viewer as a gem,
+and you have implemented a MyLifeModel class, you could do:
+
+```ruby
+require 'life_game_viewer'
+model = MyLifeModel.create(12, 12) { |r,c| r.even? }
+LifeGameViewer.new.view(model)
+```
+
 
 Where to Find This Software
 ---------------------------
@@ -90,8 +99,8 @@ Reading and Writing Game Data
 
 The application starts with a sample data set that can be easily modified in the code.
 You can also use the provided buttons to use the system clipboard to load and save
-game data.  You use the same keys you would normally use for copying pasting,
-that is, Command c and v on a Mac, and Ctrl c and v on other system.
+game data.  You use the same keys you would normally use for copying and pasting,
+that is, Command c and v on a Mac, and Ctrl c and v on other systems.
 
 Data is represented as follows:
 
@@ -106,7 +115,7 @@ For example, the two lines below:
 ```
 
 ...represent a 2 x 2 matrix in which only the upper left and
-lower right cells are alive.  The final row's new line is optional.
+lower right cells are alive.  The final row's new line character is optional.
 
 When you copy a new game's data into the application, it clears all other data and
 uses that as generation #0.
@@ -129,4 +138,3 @@ License
 -------
 
 This software is released under the MIT/X11 license.
-
