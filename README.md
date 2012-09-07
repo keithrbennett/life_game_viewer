@@ -34,8 +34,10 @@ gem install *gem
 
 Then you can run the following, e.g. in irb:
 
+```ruby
 require 'life_game_viewer'
 LifeGameViewer.new.view
+```
 
 This can be done in a single command with:
 
@@ -47,7 +49,7 @@ If you implement your own model, then you can pass an instance of it to
 the view method:
 
 ```ruby
-LifeGameViewer.new(my_model_instance).view
+LifeGameViewer.new.view(my_model_instance)
 ```
 
 
@@ -84,6 +86,10 @@ require 'life_game_viewer'
 model = MyLifeModel.create(12, 12) { |r,c| r.even? }
 LifeGameViewer.new.view(model)
 ```
+
+If there are any methods missing from your model implementation,
+an exception will be raised.  Its message will contain the
+names of the missing methods.
 
 
 Where to Find This Software
