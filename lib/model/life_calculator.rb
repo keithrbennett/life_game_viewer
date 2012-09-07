@@ -16,13 +16,9 @@ class LifeCalculator
 
   # Returns a new model with the next generation's data.
   def next_generation(old_model)
-    new_model = old_model.class.new(old_model.row_count, old_model.column_count)
-    (0...old_model.row_count).each do |row|
-      (0...old_model.column_count).each do |col|
-        new_model.set_living_state(row, col, should_live(old_model, row, col))
-      end
+    old_model.class.send(:create, old_model.row_count, old_model.column_count) do |row, col|
+      should_live(old_model, row, col)
     end
-    new_model
   end
 
   # Returns an array of [row, col] tuples corresponding to the cells

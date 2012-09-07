@@ -12,7 +12,7 @@ describe LifeVisualizer do
   end
   
   it "should return '*' for alive and '-' for dead" do
-    model = SampleLifeModel.new(1, 2)
+    model = SampleLifeModel.create(1, 2)
     model.set_living_state(0, 1, true)
     subject.to_display_string(model).chomp.should == "-*"
   end

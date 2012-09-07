@@ -8,7 +8,7 @@ require 'model/sample_life_model'
 describe Generations do
 
   it "should handle an empty 3x3 matrix correctly" do
-    life_model = SampleLifeModel.new(3, 3)
+    life_model = SampleLifeModel.create(3, 3)
     generations = Generations.new(life_model)
     generations.current.should == life_model
     generations.current_num.should == 0

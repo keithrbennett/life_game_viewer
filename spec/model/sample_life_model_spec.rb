@@ -6,7 +6,7 @@ require 'model/sample_life_model'
 
 describe SampleLifeModel do
 
-  subject { SampleLifeModel.new(12, 20) }
+  subject { SampleLifeModel.create(12, 20) }
 
   it "should be a SampleLifeModel" do
     subject.should be_a SampleLifeModel
@@ -42,7 +42,7 @@ describe SampleLifeModel do
   end
 
   it "should set living state correctly using set_living_states" do
-    model = SampleLifeModel.new(3, 3)
+    model = SampleLifeModel.create(3, 3)
     cells_to_set_alive = [[0,0], [1,1], [2,2]]
     model.set_living_states(cells_to_set_alive, true)
     cells_to_set_alive.all? do |tuple|

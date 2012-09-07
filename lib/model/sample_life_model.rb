@@ -34,7 +34,7 @@ class SampleLifeModel
     row_count = string.chomp.count("\n") + 1
     lines = string.split("\n")
     col_count = lines.first.size
-    model = self.new(row_count, col_count)
+    model = new(row_count, col_count)
 
     (0...row_count).each do |row|
       line = lines[row]

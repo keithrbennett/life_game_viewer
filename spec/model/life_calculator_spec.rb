@@ -12,46 +12,46 @@ describe LifeCalculator do
   # ============================================================
 
   it "should return cells on both sides for a non-edge cell of a 1x5 board" do
-    model = SampleLifeModel.new(1, 5)
+    model = SampleLifeModel.create(1, 5)
     subject.neighbors(model, 0, 3).sort.should == [[0,2], [0,4]]
   end
 
   it "should return 0,1 for 0,0 of a 1x5 board" do
-    model = SampleLifeModel.new(1, 5)
+    model = SampleLifeModel.create(1, 5)
     subject.neighbors(model, 0, 0).sort.should == [[0,1]]
   end
 
   it "should return 0,3 for 0,4 of a 1x5 board" do
-    model = SampleLifeModel.new(1, 5)
+    model = SampleLifeModel.create(1, 5)
     subject.neighbors(model, 0, 4).sort.should == [[0,3]]
   end
 
   it "should return 3 cells in the row above" do
-    model = SampleLifeModel.new(2, 5)
+    model = SampleLifeModel.create(2, 5)
     subject.neighbors(model, 1, 2).sort.should == \
         [[0,1], [0,2], [0,3], [1,1], [1,3]]
   end
 
   it "should return 3 cells in the row below" do
-    model = SampleLifeModel.new(2, 5)
+    model = SampleLifeModel.create(2, 5)
     subject.neighbors(model, 0, 2).sort.should == \
         [[0,1], [0,3], [1,1], [1,2], [1,3]]
   end
 
   it "should return 3 cells for lower left corner" do
-    model = SampleLifeModel.new(2, 5)
+    model = SampleLifeModel.create(2, 5)
       subject.neighbors(model, 1, 0).sort.should == \
         [ [0,0], [0,1], [1,1] ]
   end
 
   it "should return 3 cells for upper right corner" do
-    model = SampleLifeModel.new(2, 5)
+    model = SampleLifeModel.create(2, 5)
     subject.neighbors(model, 0, 4).sort.should == \
         [ [0,3], [1,3], [1,4] ]
   end
 
   it "should return 8 cells for a surrounded cell" do
-    model = SampleLifeModel.new(3, 3)
+    model = SampleLifeModel.create(3, 3)
     subject.neighbors(model, 1, 1).sort.should == \
         [[0,0], [0,1], [0,2], [1,0], [1,2], [2,0], [2,1], [2,2]]
   end

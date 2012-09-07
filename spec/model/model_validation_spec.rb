@@ -7,7 +7,7 @@ describe ModelValidation do
   subject { ModelValidation.new }
 
   it "should return success on a model with all required methods" do
-    model = SampleLifeModel.new(1,1)
+    model = SampleLifeModel.create(1,1)
     subject.methods_missing_message(model).should be_nil
   end
 
