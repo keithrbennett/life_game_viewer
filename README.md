@@ -49,11 +49,10 @@ problems running the program.)
 It's fine to use a downloaded copy of the source tree directly,
 but using it as a gem will probably be simpler.
 
-Before we get into substituting your own models and data,
-here is how to run it with the provided model and data.
+Here is how to run it with the provided model and provided sample data.
 First, install the life-game-viewer gem.  Then in your
-Ruby code you can do this (I suggest doing this in irb
-to start):
+Ruby code (I suggest using irb to start):
+
 
 ```ruby
 require 'life_game_viewer'
@@ -67,6 +66,11 @@ You can experiment with different data sets by:
 
 2) passing a custom model to the view function
 
+```ruby
+require 'life_game_viewer'
+model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
+LifeGameViewer.new.view(model)
+```
 
 3) (of course) modifying the gem source code
 
@@ -76,7 +80,7 @@ Using it to View Your Own Game of Life Model Implementation
 -----------------------------------------------------------
 
 In order to do the exercise, you will need to effectively replace the
-LifeModel's implementation with your own.  Your model will need to
+LifeModel's sample implementation with your own.  Your model will need to
 respond appropriately to the LifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
@@ -155,7 +159,7 @@ on RubyGems). Then in your code (or in JRuby's irb) you can do:
 
 ```ruby
 require 'life_game_viewer'
-LifeGameViewer.new(my_model_instance).view  # with an instance of your own model to view that
+LifeGameViewer.new.view(my_model)  # with an instance of your own model to view that
 # or
 # LifeGameViewer.new.view  # without an arg to see the sample data set
 ```
