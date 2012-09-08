@@ -27,8 +27,8 @@ class ModelValidation
   end
 
   def methods_missing(instance)
-    names_with_self_prefix = class_methods_missing(instance).map { |m| "self.#{m}" }
-    names_with_self_prefix + instance_methods_missing(instance)
+    missing_class_method_display_names = class_methods_missing(instance).map { |m| "self.#{m}" }
+    missing_class_method_display_names + instance_methods_missing(instance)
   end
 
   def methods_missing_message(instance)

@@ -1,72 +1,75 @@
 Game of Life Viewer
 ===================
 
-This is a JRuby application that uses Java's Swing UI library
-to render generations of Conway's Game of Life.  More information
-on the game is at http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life.
+This is a JRuby application that renders generations of Conway's Game of Life.
+It uses Java's Swing UI library and is an entirely client side application,
+so there is no need for a web server, browser, or even network connection.
 
-My intention in writing it was to provide a GUI player application
-with which developers could view and test their implementations
-of the Game of Life exercise, and experiment with game data.
+The game itself (as opposed to the viewer) is often used as a programming
+exercise.  More information on the game is at
+http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life.
+
+My intention in writing this was to provide a GUI player
+with which developers could
+
+1) view and test their implementations of the Game of Life exercise.
+2) easily inspect the results of different data inputs into the game
+
+
+JRuby and Java
+==============
+
+This program will only run in JRuby (and Java), so you'll need to make sure you
+have them available.  The easiest way to use JRuby is to use rvm, which you
+can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
+you could probably get it to work with Cygwin.
+
+1.9 Required
+============
+
+This program requires that JRuby be run in 1.9 mode.  In JRuby versions 1.7
+and above, this is the default setting, but for earlier versions
+you'll have to specify this mode by passing "--1.9" to the JRuby command line.
+It's probably easiest to do this by putting the following into your startup shell:
+
+export JRUBY_OPTS=--1.9
+
+You could also do this on your command line.
+
+
+Instructions
+============
 
 (Note: These instructions assume use of a Unix command line
-(e.g. Linux, Mac OS) and rvm.  You will need to rvm install jruby
-and then rvm use jruby so that JRuby commands are available
-using the names of their MRI equivalents.
+(e.g. Linux, Mac OS) and rvm. If you're using Windows,
+make the appropriate substitutions, such as '\' for '/', 'ren' for 'mv'.
+Also, please see the troubleshooting section below if you have
+problems running the program.)
 
-If you're using Windows, make the appropriate substitutions,
-such as 'jruby' for 'ruby', '\' for '/', 'ren' for 'mv'.)
+It's fine to use a downloaded copy of the source tree directly,
+but using it as a gem will probably be simpler.
 
-
-Using It As A Gem
------------------
-
-I have not yet been able to get it onto the RubyGems repo, but meanwhile
-you can clone or download the source and do this (assumes that the
-LIFE_GAME_VIEWER_HOME environment variable points to the root
-of life-game-viewer):
-
-```ruby
-cd $LIFE_GAME_VIEWER_HOME
-gem build *gemspec
-gem install *gem
-```
-(Replace the 'gem' command above with 'jruby -S gem' if not using rvm.)
-
-Then you can run the following, e.g. in irb:
+Before we get into substituting your own models and data,
+here is how to run it with the provided model and data.
+First, install the life-game-viewer gem.  Then in your
+Ruby code you can do this (I suggest doing this in irb
+to start):
 
 ```ruby
 require 'life_game_viewer'
 LifeGameViewer.new.view
 ```
 
-This can be done in a single command with:
+You can experiment with different data sets by:
 
-```
-ruby -e "require 'life_game_viewer'; LifeGameViewer.new.view"
-```
+1) using the clipboard copy and paste feature
+(see "Reading and Writing Game Data Via the Clipboard" below)
 
-If you implement your own model, then you can pass an instance of it to
-the view method:
-
-```ruby
-# my_model_instance = MyModel.create ...
-LifeGameViewer.new.view(my_model_instance)
-```
+2) passing a custom model to the view function
 
 
-Running it Directly From Source
--------------------------------
+3) (of course) modifying the gem source code
 
-
-You can run it as follows:
-
-```
-rvm install jruby          # if not already installed and using rvm
-rvm jruby                  # if necessary and using rvm
-cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
-lib/main.rb                # or jruby lib/main.rb if you're not using rvm
-```
 
 
 Using it to View Your Own Game of Life Model Implementation
@@ -78,21 +81,13 @@ respond appropriately to the LifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
 different design. A LifeModel skeleton file is provided in the
-lib/model directory for this purpose.
+lib/model directory for this purpose, so you can do the following:
 
-For example, assuming you have installed Life Game Viewer as a gem,
-and you have implemented a MyLifeModel class, you could do:
-
-```ruby
-require 'life_game_viewer'
-model = MyLifeModel.create(12, 12) { |r,c| r.even? }
-LifeGameViewer.new.view(model)
 ```
-
-If there are any methods missing from your model implementation,
-an exception will be raised.  Its message will contain the
-names of the missing methods.
-
+cd $LIFE_GAME_VIEWER_HOME/lib  # wherever you've put it
+mv LifeModel.rb LifeModelSample.rb
+cp LifeModelSkeleton.rb LifeModel.rb
+```
 
 Where to Find This Software
 ---------------------------
@@ -100,15 +95,25 @@ Where to Find This Software
 This software is located on GitHub at https://github.com/keithrbennett/life-game-viewer.
 
 
+How to Run This Software
+------------------------
 
+You can run it as follows:
 
-Reading and Writing Game Data
-------------------------------------------------------
+```
+rvm install jruby          # if not already installed and using rvm
+rvm jruby                  # if necessary and using rvm
+cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
+lib/main.rb                # or jruby lib/main.rb if you're not using rvm
+```
+
+Reading and Writing Game Data Via the Clipboard
+-----------------------------------------------
 
 The application starts with a sample data set that can be easily modified in the code.
 You can also use the provided buttons to use the system clipboard to load and save
-game data.  You use the same keys you would normally use for copying and pasting,
-that is, Command c and v on a Mac, and Ctrl c and v on other systems.
+game data.  You use the same keys you would normally use for copying pasting,
+that is, Command c and v on a Mac, and Ctrl c and v on other system.
 
 Data is represented as follows:
 
@@ -123,7 +128,7 @@ For example, the two lines below:
 ```
 
 ...represent a 2 x 2 matrix in which only the upper left and
-lower right cells are alive.  The final row's new line character is optional.
+lower right cells are alive.  The final row's new line is optional.
 
 When you copy a new game's data into the application, it clears all other data and
 uses that as generation #0.
@@ -141,37 +146,25 @@ In many cases, it will be easier to generate the string programmatically, either
 or in irb.
 
 
-Troubleshooting
----------------
+Using it as a Gem
+-----------------
 
-The most common problems will probably be related to the installation and use of JRuby,
-and the unintentional use of MRI Ruby instead of JRuby.
+You can also use it as a gem by 'gem build'ing it 
+from the project root on the command line. (it's not yet available
+on RubyGems). Then in your code (or in JRuby's irb) you can do:
 
-To see which version of Ruby you're using, use the '-v' option for ruby or jruby:
-
-```
->ruby -v
-jruby 1.6.7 (ruby-1.9.2-p312) (2012-02-22 3e82bc8) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_33) [darwin-x86_64-java]
-```
-
-Another test is to try to require 'java'.  When you see the error in the last command below,
-you know that you're not using JRuby:
-
-```
->ruby -v
-jruby 1.6.7 (ruby-1.9.2-p312) (2012-02-22 3e82bc8) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_33) [darwin-x86_64-java]
-
->ruby -e "require 'java'"
-
->rvm 1.9
-
->ruby -e "require 'java'"
-/Users/keithb/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:
-in `require': cannot load such file -- java (LoadError)
+```ruby
+require 'life_game_viewer'
+LifeGameViewer.new(my_model_instance).view  # with an instance of your own model to view that
+# or
+# LifeGameViewer.new.view  # without an arg to see the sample data set
 ```
 
+However, this would make replacing the sample implementation with your own
+more difficult, so it's probably better to just download the code base.
 
 License
 -------
 
 This software is released under the MIT/X11 license.
+
