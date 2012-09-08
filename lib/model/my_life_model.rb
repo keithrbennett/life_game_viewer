@@ -2,7 +2,7 @@
 # living/dead states in the matrix.
 
 
-class LifeModel
+class MyLifeModel
 
   # You may want to copy certain methods from SampleLifeModel that you don't
   # feel the need to implement yourself.  For example, the to_s and ==
@@ -15,7 +15,7 @@ class LifeModel
   # you want with it.  Instead, we require a couple of static factory methods
   # needed by the application.
 
-  # Creates and returns a LifeModel instance whose size and values are specified
+  # Creates and returns an instance whose size and values are specified
   # in the passed string.  Rows must be delimited by "\n".  The '*'
   # character represents true, and any other value will evaluate to false.
   def self.create_from_string(string)

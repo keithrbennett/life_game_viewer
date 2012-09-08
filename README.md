@@ -84,14 +84,9 @@ LifeModel's sample implementation with your own.  Your model will need to
 respond appropriately to the LifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
-different design. A LifeModel skeleton file is provided in the
-lib/model directory for this purpose, so you can do the following:
+different design. A MyLifeModel skeleton file is provided in the
+lib/model directory for this purpose.
 
-```
-cd $LIFE_GAME_VIEWER_HOME/lib  # wherever you've put it
-mv LifeModel.rb LifeModelSample.rb
-cp LifeModelSkeleton.rb LifeModel.rb
-```
 
 Where to Find This Software
 ---------------------------
