@@ -196,6 +196,37 @@ so be prepared to kill the application if it no longer responds.
 You can normally do this by pressing _Ctrl-C_ on the command line
 from which you started the program.
 
+
+Troubleshooting
+---------------
+
+The most common problems will probably be related to the installation and use of JRuby,
+and the unintentional use of MRI Ruby instead of JRuby.
+
+To see which version of Ruby you're using, use the '-v' option for ruby or jruby:
+
+```
+>ruby -v
+jruby 1.6.7 (ruby-1.9.2-p312) (2012-02-22 3e82bc8) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_33) [darwin-x86_64-java]
+```
+
+Another test is to try to require 'java'.  When you see the error in the last command below,
+you know that you're not using JRuby:
+
+```
+>ruby -v
+jruby 1.6.7 (ruby-1.9.2-p312) (2012-02-22 3e82bc8) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_33) [darwin-x86_64-java]
+
+>ruby -e "require 'java'"
+
+>rvm 1.9
+
+>ruby -e "require 'java'"
+/Users/keithb/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:
+in `require': cannot load such file -- java (LoadError)
+```
+
+
 Feedback
 --------
 
