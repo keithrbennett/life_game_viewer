@@ -176,11 +176,11 @@ Navigating the Generations
 --------------------------
 
 There are buttons to help you navigate the generations:
-First, Previous, Next, and Last.
+_First_, _Previous_, _Next_, and _Last_.
 There are keystroke equivalents for your convenience, all numbers
 so that you can put your fingers on the number row of the
-keyboard to do all your navigation. The numbers 1, 4, 7, and 0
-correspond to First, Previous, Next, and Last, respectively.
+keyboard to do all your navigation. The numbers _1_, _4_, _7_, and _0_
+correspond to _First_, _Previous_, _Next_, and _Last_, respectively.
 
 The Game of Life next generation calculation algorithm
 only considers the most recent generation as input, so
@@ -189,6 +189,13 @@ all subsequent ones will be identical as well.  The viewer will
 consider the first of consecutive identical generations to be
 the end of the lineage.
 
+You can have the viewer find this last generation for you
+by pressing the _Last_ button.  Be careful, though --
+this operation runs on the main UI thread and I haven't
+gotten around to enabling its interruption --
+so be prepared to kill the application if it no longer responds.
+You can normally do this by pressing _Ctrl-C_ on the command line
+from which you started the program.
 
 Feedback
 --------
