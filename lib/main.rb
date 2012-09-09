@@ -5,6 +5,6 @@ unless /java$/ === RUBY_PLATFORM
   exit -1
 end
 
-require_relative 'view/life_game_viewer'
+require_relative 'life_game_viewer'
 
 LifeGameViewer.view_sample

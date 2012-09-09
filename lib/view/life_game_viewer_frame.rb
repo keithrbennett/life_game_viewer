@@ -39,7 +39,7 @@ java_import %w(
 )
 
 
-class LifeGameViewer < JFrame
+class LifeGameViewerFrame < JFrame
 
   attr_accessor :table_model
 
@@ -50,7 +50,7 @@ class LifeGameViewer < JFrame
     str = ''
     12.times { str << ('*-' * 6) << "\n" }
     model = SampleLifeModel.create_from_string(str)
-    frame = LifeGameViewer.new(model)
+    frame = LifeGameViewerFrame.new(model)
     frame.visible = true
     frame  # return frame so it can be manipulated (.visible =, etc.)
   end
