@@ -74,20 +74,19 @@ LifeGameViewer.view_sample
 
 You can experiment with different data sets by:
 
-<ol>
-<li>using the clipboard copy and paste feature
-(see "Reading and Writing Game Data Via the Clipboard" below)</li>
+1) using the clipboard copy and paste feature
+(see "Reading and Writing Game Data Via the Clipboard" below)
 
-<li>passing a custom model to the view function, e.g.:
+2) passing a custom model to the view function, e.g.:
 
 ```ruby
 require 'life_game_viewer'
 model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
 LifeGameViewer.view(model)
 ```
-</li>
-<li>(of course) modifying the source code</li>
-</ol>
+
+3) (of course) modifying the source code
+
 
 
 Viewing Your Own Game of Life Model Implementation
