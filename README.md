@@ -12,8 +12,10 @@ http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life.
 My intention in writing this was to provide a GUI player
 with which developers could
 
-1) view and test their implementations of the Game of Life exercise.
-2) easily inspect the results of different data inputs into the game
+<ol>
+<li> view and test their implementations of the Game of Life exercise</li>
+<li> easily inspect the results of different data inputs into the game</li>
+</ol>
 
 
 JRuby and Java
@@ -23,6 +25,7 @@ This program will only run in JRuby (and Java), so you'll need to make sure you
 have them available.  The easiest way to use JRuby is to use rvm, which you
 can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
 you could probably get it to work with Cygwin.
+
 
 1.9 Required
 ============
@@ -56,7 +59,7 @@ Ruby code (I suggest using irb to start):
 
 ```ruby
 require 'life_game_viewer'
-LifeGameViewer.new.view
+LifeGameViewer.view_sample
 ```
 
 You can experiment with different data sets by:
@@ -69,10 +72,10 @@ You can experiment with different data sets by:
 ```ruby
 require 'life_game_viewer'
 model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
-LifeGameViewer.new.view(model)
+LifeGameViewer.view(model)
 ```
 
-3) (of course) modifying the gem source code
+3) (of course) modifying the source code
 
 
 
@@ -80,8 +83,8 @@ Using it to View Your Own Game of Life Model Implementation
 -----------------------------------------------------------
 
 In order to do the exercise, you will need to effectively replace the
-LifeModel's sample implementation with your own.  Your model will need to
-respond appropriately to the LifeModel's public method names, because
+SampleLifeModel's implementation with your own.  Your model will need to
+respond appropriately to the SampleLifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
 different design. A MyLifeModel skeleton file is provided in the
@@ -94,17 +97,20 @@ Where to Find This Software
 This software is located on GitHub at https://github.com/keithrbennett/life-game-viewer.
 
 
-How to Run This Software
-------------------------
+Running the Sample from the Command Line
+----------------------------------------
 
-You can run it as follows:
+You can run it as follows.  Assuming the environment variable
+LIFE_GAME_VIEWER_HOME points to the root of the downloaded
+or gem code base, you can do this:
 
 ```
-rvm install jruby          # if not already installed and using rvm
-rvm jruby                  # if necessary and using rvm
-cd $LIFE_GAME_VIEWER_HOME  # wherever you've put it
-lib/main.rb                # or jruby lib/main.rb if you're not using rvm
+$LIFE_GAME_VIEWER_HOME/lib/main.rb
 ```
+
+If this doesn't work you may need to prepend "ruby" or "jruby"
+to this command line.
+
 
 Reading and Writing Game Data Via the Clipboard
 -----------------------------------------------
@@ -141,26 +147,10 @@ The clipboard functionality enables you to edit game data by doing the following
 * copy it to your clipboard
 * paste it back into the game
 
-In many cases, it will be easier to generate the string programmatically, either in the program itself,
-or in irb.
+In many cases, it will be easier to generate the string programmatically,
+either in the program itself, or in irb.
 
 
-Using it as a Gem
------------------
-
-You can also use it as a gem by 'gem build'ing it 
-from the project root on the command line. (it's not yet available
-on RubyGems). Then in your code (or in JRuby's irb) you can do:
-
-```ruby
-require 'life_game_viewer'
-LifeGameViewer.new.view(my_model)  # with an instance of your own model to view that
-# or
-# LifeGameViewer.new.view  # without an arg to see the sample data set
-```
-
-However, this would make replacing the sample implementation with your own
-more difficult, so it's probably better to just download the code base.
 
 License
 -------
