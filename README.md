@@ -239,10 +239,10 @@ License
 This software is released under the MIT/X11 license.
 
 
-[1]: http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/   "article"
-[2]: http://www.bbs-software.com/blog/                                          "blog"
-[3]: http://jruby.org/                                                          "JRuby"
-[4]: https://rvm.io/rvm/install/                                                "rvm"
-[5]: http://www.cygwin.com/                                                     "Cygwin"
-[6]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/sample_life_model.rb  "SampleLifeModel"
-[7]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/my_life_model.rb  "MyLifeModel"
+[1]: http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/
+[2]: http://www.bbs-software.com/blog/
+[3]: http://jruby.org/
+[4]: https://rvm.io/rvm/install/
+[5]: http://www.cygwin.com/
+[6]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/sample_life_model.rb
+[7]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/my_life_model.rb
