@@ -1,7 +1,8 @@
 Game of Life Viewer
 ===================
 
-This is a JRuby application that renders generations of Conway's Game of Life.
+This is a JRuby application that calculates and displays generations
+of Conway's Game of Life.
 It uses Java's Swing UI library and is an entirely client side application,
 so there is no need for a web server, browser, or even network connection.
 
@@ -21,10 +22,11 @@ with which developers could
 JRuby and Java
 ==============
 
-This program will only run in JRuby (and Java), so you'll need to make sure you
-have them available.  The easiest way to use JRuby is to use rvm, which you
+This program will only run in JRuby (which needs the Java Runtime Environment),
+so you'll need to make sure you
+have both installed.  The easiest way to install and use JRuby is with rvm, which you
 can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
-you could probably get it to work with Cygwin.
+you might be able to get it to work with Cygwin.
 
 
 1.9 Required
@@ -32,14 +34,19 @@ you could probably get it to work with Cygwin.
 
 This program requires that JRuby be run in 1.9 mode.  In JRuby versions 1.7
 and above, this is the default setting, but for earlier versions
-you'll have to specify this mode by passing "--1.9" to the JRuby command line.
+you'll have to specify this mode by passing the "--1.9" option to JRuby.
 It's probably easiest to do this by putting the following into your startup shell:
 
 ```
 export JRUBY_OPTS=--1.9
 ```
 
-You could also do this on your command line.
+You could also do this on your command line by preceding your JRuby commands with
+the setting, as in:
+
+```
+JRUBY_OPTS=--1.9 jruby ...
+```
 
 
 Instructions
@@ -84,19 +91,26 @@ LifeGameViewer.view(model)
 Using it to View Your Own Game of Life Model Implementation
 -----------------------------------------------------------
 
-In order to do the exercise, you will need to effectively replace the
+In order to do the exercise, you will need to replace the
 SampleLifeModel's implementation with your own.  Your model will need to
 respond appropriately to the SampleLifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
-different design. A MyLifeModel skeleton file is provided in the
-lib/model directory for this purpose.
+different design. (To take this to the extreme, the model could even
+be implemented in Java, with a thin JRuby adapter around it.)
+
+A MyLifeModel skeleton file is provided in the
+lib/model directory as a convenient starting point for you.
+You can copy this file into your own working area.
 
 
 Where to Find This Software
 ---------------------------
 
-This software is located on GitHub at https://github.com/keithrbennett/life-game-viewer.
+This software is located on GitHub at
+https://github.com/keithrbennett/life-game-viewer.
+There is also a blog article about this application at
+http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/.
 
 
 Running the Sample from the Command Line
@@ -158,4 +172,3 @@ License
 -------
 
 This software is released under the MIT/X11 license.
-
