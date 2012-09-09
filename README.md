@@ -22,12 +22,12 @@ with which developers could:
 JRuby and Java
 ==============
 
-This program will only run in JRuby (which needs the Java Runtime Environment),
+This program will only run in [JRuby] [3] (which needs the Java Runtime Environment),
 so you'll need to make sure you
-have both installed.  The easiest way to install and use JRuby is with rvm
-(https://rvm.io/rvm/install/), which you
+have both installed.  The easiest way to install and use JRuby is with [rvm] [4],
+which you
 can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
-you might be able to get it to work with Cygwin.
+you might be able to get it to work with [Cygwin] [5].
 
 
 1.9 Required
@@ -64,7 +64,7 @@ but using it as a gem will probably be simpler.
 
 Here is how to run it with the provided model and provided sample data.
 First, install the life-game-viewer gem.  Then in your
-Ruby code (I suggest using irb to start):
+Ruby code (I suggest using _irb_ to start):
 
 
 ```ruby
@@ -75,7 +75,7 @@ LifeGameViewer.view_sample
 You can experiment with different data sets by:
 
 1) using the clipboard copy and paste feature
-(see "Reading and Writing Game Data Via the Clipboard" below)
+(see _Reading and Writing Game Data Via the Clipboard_ below)
 
 2) passing a custom model to the view function, e.g.:
 
@@ -93,7 +93,7 @@ Viewing Your Own Game of Life Model Implementation
 --------------------------------------------------
 
 In order to do the exercise, you will need to replace the
-SampleLifeModel's implementation with your own.  Your model will need to
+[SampleLifeModel] [6] implementation with your own.  Your model will need to
 respond appropriately to the SampleLifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
@@ -102,7 +102,7 @@ be implemented in Java, with a thin JRuby adapter around it; or, as
 a RESTful web service in any arbitrary language with the adapter
 making calls to it.)
 
-A MyLifeModel skeleton file is provided in the
+A [MyLifeModel] [7] skeleton file is provided in the
 lib/model directory as a convenient starting point for you.
 You can copy this file into your own working area.
 
@@ -210,3 +210,8 @@ This software is released under the MIT/X11 license.
 
 [1]: http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/   "article"
 [2]: http://www.bbs-software.com/blog/                                          "blog"
+[3]: http://jruby.org/                                                          "JRuby"
+[4]: https://rvm.io/rvm/install/                                                "rvm"
+[5]: http://www.cygwin.com/                                                     "Cygwin"
+[6]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/sample_life_model.rb  "SampleLifeModel"
+[7]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/my_life_model.rb  "MyLifeModel"
