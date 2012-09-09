@@ -11,7 +11,7 @@ exercise.  More information on the game is at
 http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life.
 
 My intention in writing this was to provide a GUI player
-with which developers could
+with which developers could:
 
 <ol>
 <li> view and test their implementations of the Game of Life exercise</li>
@@ -24,7 +24,8 @@ JRuby and Java
 
 This program will only run in JRuby (which needs the Java Runtime Environment),
 so you'll need to make sure you
-have both installed.  The easiest way to install and use JRuby is with rvm, which you
+have both installed.  The easiest way to install and use JRuby is with rvm
+(https://rvm.io/rvm/install/), which you
 can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
 you might be able to get it to work with Cygwin.
 
@@ -73,23 +74,24 @@ LifeGameViewer.view_sample
 
 You can experiment with different data sets by:
 
-1) using the clipboard copy and paste feature
-(see "Reading and Writing Game Data Via the Clipboard" below)
+<ol>
+<li>using the clipboard copy and paste feature
+(see "Reading and Writing Game Data Via the Clipboard" below)</li>
 
-2) passing a custom model to the view function
+<li>passing a custom model to the view function, e.g.:
 
 ```ruby
 require 'life_game_viewer'
 model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
 LifeGameViewer.view(model)
 ```
+</li>
+<li>(of course) modifying the source code</li>
+</ol>
 
-3) (of course) modifying the source code
 
-
-
-Using it to View Your Own Game of Life Model Implementation
------------------------------------------------------------
+Viewing Your Own Game of Life Model Implementation
+--------------------------------------------------
 
 In order to do the exercise, you will need to replace the
 SampleLifeModel's implementation with your own.  Your model will need to
@@ -97,7 +99,9 @@ respond appropriately to the SampleLifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
 want, even using the LifeModel as a minimal adapter to a completely
 different design. (To take this to the extreme, the model could even
-be implemented in Java, with a thin JRuby adapter around it.)
+be implemented in Java, with a thin JRuby adapter around it; or, as
+a RESTful web service in any arbitrary language with the adapter
+making calls to it.)
 
 A MyLifeModel skeleton file is provided in the
 lib/model directory as a convenient starting point for you.
@@ -134,7 +138,9 @@ Reading and Writing Game Data Via the Clipboard
 The application starts with a sample data set that can be easily modified in the code.
 You can also use the provided buttons to use the system clipboard to load and save
 game data.  You use the same keys you would normally use for copying pasting,
-that is, Command c and v on a Mac, and Ctrl c and v on other system.
+that is, Command c and v on a Mac, and Ctrl c and v on other system. (Note: there
+are currently problems using these keystrokes on Linux and Windows; for now,
+please click the buttons.)
 
 Data is represented as follows:
 
@@ -166,6 +172,11 @@ The clipboard functionality enables you to edit game data by doing the following
 In many cases, it will be easier to generate the string programmatically,
 either in the program itself, or in irb.
 
+
+Feedback
+--------
+
+Constructive feedback is always welcome.
 
 
 License
