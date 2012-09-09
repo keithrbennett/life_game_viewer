@@ -172,6 +172,24 @@ In many cases, it will be easier to generate the string programmatically,
 either in the program itself, or in irb.
 
 
+Navigating the Generations
+--------------------------
+
+There are buttons to help you navigate the generations:
+First, Previous, Next, and Last.
+There are keystroke equivalents for your convenience, all numbers
+so that you can put your fingers on the number row of the
+keyboard to do all your navigation. The numbers 1, 4, 7, and 0
+correspond to First, Previous, Next, and Last, respectively.
+
+The Game of Life next generation calculation algorithm
+only considers the most recent generation as input, so
+if there are two consecutive generations that are identical,
+all subsequent ones will be identical as well.  The viewer will
+consider the first of consecutive identical generations to be
+the end of the lineage.
+
+
 Feedback
 --------
 
