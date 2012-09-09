@@ -41,6 +41,18 @@ class MainFrame < JFrame
 
   attr_accessor :table_model
 
+  # Special class method for demonstration purposes; makes it
+  # trivially simple to view the program in action without
+  # having to add any custom behavior.
+  def self.view_sample
+    str = ''
+    12.times { str << ('*-' * 6) << "\n" }
+    model = SampleLifeModel.create_from_string(str)
+    frame = MainFrame.new(model)
+    frame.visible = true
+    frame  # return frame so it can be manipulated (.visible =, etc.)
+  end
+
   def initialize(life_model)
     model_validation_message = ModelValidation.new.methods_missing_message(life_model)
     if model_validation_message
