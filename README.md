@@ -112,8 +112,7 @@ Where to Find This Software
 
 This software is located on GitHub at
 https://github.com/keithrbennett/life-game-viewer.
-There is also a blog article about this application at
-http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/.
+There is also an [article] [1] about this application on my [blog] [2].
 
 
 Running the Sample from the Command Line
@@ -207,3 +206,7 @@ License
 -------
 
 This software is released under the MIT/X11 license.
+
+
+[1]: http://www.bbs-software.com/blog/2012/09/05/conways-game-of-life-viewer/   "article"
+[2]: http://www.bbs-software.com/blog/                                          "blog"
