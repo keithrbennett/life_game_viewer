@@ -5,6 +5,8 @@ require 'java'
 
 require_relative '../model/life_visualizer'
 require_relative '../model/model_validation'
+require_relative '../model/sample_life_model'
+require_relative 'life_table_model'
 require_relative 'actions'
 
 
@@ -37,7 +39,7 @@ java_import %w(
 )
 
 
-class MainFrame < JFrame
+class LifeGameViewer < JFrame
 
   attr_accessor :table_model
 
@@ -48,7 +50,7 @@ class MainFrame < JFrame
     str = ''
     12.times { str << ('*-' * 6) << "\n" }
     model = SampleLifeModel.create_from_string(str)
-    frame = MainFrame.new(model)
+    frame = LifeGameViewer.new(model)
     frame.visible = true
     frame  # return frame so it can be manipulated (.visible =, etc.)
   end
