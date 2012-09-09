@@ -35,7 +35,9 @@ and above, this is the default setting, but for earlier versions
 you'll have to specify this mode by passing "--1.9" to the JRuby command line.
 It's probably easiest to do this by putting the following into your startup shell:
 
+```
 export JRUBY_OPTS=--1.9
+```
 
 You could also do this on your command line.
 
