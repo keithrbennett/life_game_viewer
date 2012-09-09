@@ -119,14 +119,14 @@ Running the Sample from the Command Line
 ----------------------------------------
 
 You can run it as follows.  Assuming the environment variable
-LIFE_GAME_VIEWER_HOME points to the root of the downloaded
+_LIFE_GAME_VIEWER_HOME_ points to the root of the downloaded
 or gem code base, you can do this:
 
 ```
 $LIFE_GAME_VIEWER_HOME/lib/main.rb
 ```
 
-If this doesn't work you may need to prepend "ruby" or "jruby"
+If this doesn't work you may need to prepend _ruby_ or _jruby_
 to this command line.
 
 
@@ -136,7 +136,7 @@ Reading and Writing Game Data Via the Clipboard
 The application starts with a sample data set that can be easily modified in the code.
 You can also use the provided buttons to use the system clipboard to load and save
 game data.  You use the same keys you would normally use for copying pasting,
-that is, Command c and v on a Mac, and Ctrl c and v on other system. (Note: there
+that is, _Command_ c and v on a Mac, and _Ctrl_ c and v on other systems. (Note: there
 are currently problems using these keystrokes on Linux and Windows; for now,
 please click the buttons.)
 
