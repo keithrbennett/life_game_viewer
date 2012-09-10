@@ -1,3 +1,4 @@
+$:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'life-game-viewer'
@@ -8,5 +9,6 @@ Gem::Specification.new do |s|
   s.authors     = ["Keith R. Bennett"]
   s.email       = 'keithrbennett@gmail.com'
   s.files       = Dir["README.md", "lib/**/*.rb", "resources/**/*"]
-  s.homepage    = 'http://rubygems.org/gems/life-game-viewer'
+  s.homepage    = 'https://github.com/keithrbennett/life-game-viewer'
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
 end

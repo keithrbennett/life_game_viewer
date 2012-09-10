@@ -1,0 +1,5 @@
+#!/usr/bin/env jruby
+
+require 'life_game_viewer'
+
+LifeGameViewer.view_sample
