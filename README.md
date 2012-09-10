@@ -18,14 +18,19 @@ with which developers could:
 <li> easily inspect the results of different data inputs into the game</li>
 </ol>
 
+(Note: The instructions below assume use of a Unix command line
+(e.g. Linux, Mac OS) and rvm. If you're using Windows,
+make the appropriate substitutions, such as '\' for '/', 'ren' for 'mv'.
+Also, please see the troubleshooting section below if you have
+problems running the program.)
+
 
 JRuby and Java
 ==============
 
 This program will only run in [JRuby] [3] (which needs the Java Runtime Environment),
-so you'll need to make sure you
-have both installed.  The easiest way to install and use JRuby is with [rvm] [4],
-which you
+so you'll need to make sure you have both installed.
+The easiest way to install and use JRuby is with [rvm] [4], which you
 can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
 you might be able to get it to work with [Cygwin] [5].
 
@@ -50,8 +55,8 @@ JRUBY_OPTS=--1.9 jruby ...
 ```
 
 
-Instructions
-============
+Running With the Provided Sample Model
+--------------------------------------
 
 (Note: These instructions assume use of a Unix command line
 (e.g. Linux, Mac OS) and rvm. If you're using Windows,
@@ -63,27 +68,17 @@ It's fine to use a downloaded copy of the source tree directly,
 but using it as a gem will probably be simpler.
 
 Here is how to run it with the provided model and provided sample data.
-First, install the life-game-viewer gem.  Then in your
-Ruby code (I suggest using _irb_ to start):
+First, install the life-game-viewer gem. This installs a script that
+you can then run on your command line:
 
-
-```ruby
-require 'life_game_viewer'
-LifeGameViewer.view_sample
+```
+life-view-sample
 ```
 
 You can experiment with different data sets by:
 
 1) using the clipboard copy and paste feature
 (see _Reading and Writing Game Data Via the Clipboard_ below)
-
-2) passing a custom model to the view function, e.g.:
-
-```ruby
-require 'life_game_viewer'
-model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
-LifeGameViewer.view(model)
-```
 
 3) (of course) modifying the source code
 
@@ -96,7 +91,7 @@ In order to do the exercise, you will need to replace the
 [SampleLifeModel] [6] implementation with your own.  Your model will need to
 respond appropriately to the SampleLifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
-want, even using the LifeModel as a minimal adapter to a completely
+want, even using the MyLifeModel as a minimal adapter to a completely
 different design. (To take this to the extreme, the model could even
 be implemented in Java, with a thin JRuby adapter around it; or, as
 a RESTful web service in any arbitrary language with the adapter
@@ -106,6 +101,16 @@ A [MyLifeModel] [7] skeleton file is provided in the
 lib/model directory as a convenient starting point for you.
 You can copy this file into your own working area.
 
+In your program, all you would need to do is to require life_game_viewer
+and pass an instance of your model to the LifeGameViewer.view method.
+For example:
+
+```ruby
+require 'life_game_viewer'
+model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
+LifeGameViewer.view(model)
+```
+
 
 Where to Find This Software
 ---------------------------
@@ -113,21 +118,6 @@ Where to Find This Software
 This software is located on GitHub at
 https://github.com/keithrbennett/life-game-viewer.
 There is also an [article] [1] about this application on my [blog] [2].
-
-
-Running the Sample from the Command Line
-----------------------------------------
-
-You can run it as follows.  Assuming the environment variable
-_LIFE_GAME_VIEWER_HOME_ points to the root of the downloaded
-or gem code base, you can do this:
-
-```
-$LIFE_GAME_VIEWER_HOME/lib/main.rb
-```
-
-If this doesn't work you may need to prepend _ruby_ or _jruby_
-to this command line.
 
 
 Reading and Writing Game Data Via the Clipboard
