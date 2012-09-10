@@ -1,5 +1,11 @@
 #!/usr/bin/env jruby
 
+unless /java$/ === RUBY_PLATFORM
+  puts "This program must be run in JRuby."
+  exit -1
+end
+
 require 'life_game_viewer'
+
 
 LifeGameViewer.view_sample
