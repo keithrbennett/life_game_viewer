@@ -34,7 +34,7 @@ class ModelValidation
   def methods_missing_message(instance)
     missing_methods = methods_missing(instance)
     missing_methods.empty? \
-        ? nil
+        ? nil \
         : "Model is missing the following required methods: #{missing_methods.join(", ")}."
   end
   private

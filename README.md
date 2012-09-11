@@ -72,7 +72,7 @@ First, install the life-game-viewer gem. This installs a script that
 you can then run on your command line:
 
 ```
-life-view-sample
+life_view_sample
 ```
 
 You can experiment with different data sets by:
