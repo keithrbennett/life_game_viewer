@@ -103,7 +103,7 @@ For example:
 ```ruby
 require 'life_game_viewer'
 model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
-LifeGameViewer.view(model)
+LifeGameViewer::Main.view(model)
 ```
 
 
