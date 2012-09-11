@@ -41,13 +41,14 @@ you might be able to get it to work with [Cygwin] [5].
 This program requires that JRuby be run in 1.9 mode.  In JRuby versions 1.7
 and above, this is the default setting, but for earlier versions
 you'll have to specify this mode by passing the "--1.9" option to JRuby.
-It's probably easiest to do this by putting the following into your startup shell:
+It's probably easiest to do this by putting the following into your startup
+shell's initialization file (e.g. .bashrc or .zshrc):
 
 ```
 export JRUBY_OPTS=--1.9
 ```
 
-You could also do this on your command line by preceding your JRuby commands with
+You could do this on your command line instead by preceding your JRuby commands with
 the setting, as in:
 
 ```
@@ -58,17 +59,11 @@ JRUBY_OPTS=--1.9 jruby ...
 Running With the Provided Sample Model
 --------------------------------------
 
-(Note: These instructions assume use of a Unix command line
-(e.g. Linux, Mac OS) and rvm. If you're using Windows,
-make the appropriate substitutions, such as '\' for '/', 'ren' for 'mv'.
-Also, please see the troubleshooting section below if you have
-problems running the program.)
-
 It's fine to use a downloaded copy of the source tree directly,
 but using it as a gem will probably be simpler.
 
 Here is how to run it with the provided model and provided sample data.
-First, install the life-game-viewer gem. This installs a script that
+First, install the life_game_viewer gem. This installs a script that
 you can then run on your command line:
 
 ```
@@ -116,7 +111,7 @@ Where to Find This Software
 ---------------------------
 
 This software is located on GitHub at
-https://github.com/keithrbennett/life-game-viewer.
+https://github.com/keithrbennett/life_game_viewer.
 There is also an [article] [1] about this application on my [blog] [2].
 
 
@@ -234,5 +229,5 @@ This software is released under the MIT/X11 license.
 [3]: http://jruby.org/        "http://jruby.org/"
 [4]: https://rvm.io/rvm/install/      "https://rvm.io/rvm/install/"
 [5]: http://www.cygwin.com/       "http://www.cygwin.com/"
-[6]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/sample_life_model.rb     "https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/sample_life_model.rb"
-[7]: https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/my_life_model.rb     "https://github.com/keithrbennett/life-game-viewer/blob/master/lib/model/my_life_model.rb"
+[6]: https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/sample_life_model.rb     "https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/sample_life_model.rb"
+[7]: https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/my_life_model.rb     "https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/my_life_model.rb"
