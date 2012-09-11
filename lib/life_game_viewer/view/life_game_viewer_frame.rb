@@ -270,7 +270,7 @@ class LinkPanel < JPanel
   end
 
   def github_label
-    url = 'http://github.com/keithrbennett/life-game-viewer'
+    url = 'http://github.com/keithrbennett/life_game_viewer'
     HyperlinkLabel.new(url, "Github",
         "Visit the Github page for this project at #{url}.")
   end
