@@ -229,5 +229,5 @@ This software is released under the MIT/X11 license.
 [3]: http://jruby.org/        "http://jruby.org/"
 [4]: https://rvm.io/rvm/install/      "https://rvm.io/rvm/install/"
 [5]: http://www.cygwin.com/       "http://www.cygwin.com/"
-[6]: https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/sample_life_model.rb     "https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/sample_life_model.rb"
-[7]: https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/my_life_model.rb     "https://github.com/keithrbennett/life_game_viewer/blob/master/lib/model/my_life_model.rb"
+[6]: https://github.com/keithrbennett/life_game_viewer/blob/master/lib/life_game_viewer/model/sample_life_model.rb     "https://github.com/keithrbennett/life_game_viewer/blob/master/lib/life_game_viewer/model/sample_life_model.rb"
+[7]: https://github.com/keithrbennett/life_game_viewer/blob/master/lib/life_game_viewer/model/my_life_model.rb     "https://github.com/keithrbennett/life_game_viewer/blob/master/lib/life_game_viewer/model/my_life_model.rb"
