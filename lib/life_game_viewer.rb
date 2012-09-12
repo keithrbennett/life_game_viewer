@@ -3,10 +3,20 @@
 
 module LifeGameViewer
 
-  unless /java$/ === RUBY_PLATFORM
-    puts "This program must be run in JRuby."
-    exit -1
+  platform_ok = /java$/ === RUBY_PLATFORM
+  version_ok  = ! (/^1.8/ === RUBY_VERSION)
+
+  unless platform_ok
+    raise "This program must be run in JRuby running in 1.9 mode.\n"
   end
+
+  unless version_ok
+    raise \
+"""This program must be run in JRuby in 1.9 mode.
+Make sure the environment variable JRUBY_OPTS is set to include '--1.9'.
+"""
+  end
+
 
   require 'java'
 
