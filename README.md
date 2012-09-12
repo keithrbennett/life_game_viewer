@@ -28,7 +28,7 @@ problems running the program.)
 JRuby and Java
 ==============
 
-This program will only run in [JRuby] [3] (which needs the Java Runtime Environment),
+This program will only run in [JRuby] [3],which needs the Java Runtime Environment,
 so you'll need to make sure you have both installed.
 The easiest way to install and use JRuby is with [rvm] [4], which you
 can only do with a Unix-like shell.  Linux or Mac OS will easily work; for Windows,
@@ -40,19 +40,28 @@ you might be able to get it to work with [Cygwin] [5].
 
 This program requires that JRuby be run in 1.9 mode.  In JRuby versions 1.7
 and above, this is the default setting, but for earlier versions
-you'll have to specify this mode by passing the "--1.9" option to JRuby.
-It's probably easiest to do this by putting the following into your startup
+you'll have to specify this mode by passing the _--1.9_ option to JRuby.
+Here are three ways to do that:
+
+1) Put the following into your startup
 shell's initialization file (e.g. .bashrc or .zshrc):
 
 ```
 export JRUBY_OPTS=--1.9
 ```
 
-You could do this on your command line instead by preceding your JRuby commands with
+2) Execute the above command in your shell
+
+3) Precede the command with the variable/value setting, e.g.:
+
+You could do this for just the one command on your command line instead by preceding your JRuby commands with
 the setting, as in:
 
 ```
-JRUBY_OPTS=--1.9 jruby ...
+JRUBY_OPTS=--1.9 jruby irb  # or
+JRUBY_OPTS=--1.9 jruby   # or
+JRUBY_OPTS=--1.9 jruby irb  # or
+
 ```
 
 
@@ -75,6 +84,14 @@ You can experiment with different data sets by:
 1) using the clipboard copy and paste feature
 (see _Reading and Writing Game Data Via the Clipboard_ below)
 
+2) instantiating a model yourself, e.g.:
+
+```ruby
+require 'life_game_viewer'
+model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
+LifeGameViewer::Main.view(model)
+```
+
 3) (of course) modifying the source code
 
 
@@ -86,14 +103,14 @@ In order to do the exercise, you will need to replace the
 [SampleLifeModel] [6] implementation with your own.  Your model will need to
 respond appropriately to the SampleLifeModel's public method names, because
 they are called by the viewer, but you can implement them any way you
-want, even using the MyLifeModel as a minimal adapter to a completely
+want, even using your MyLifeModel as a minimal adapter to a completely
 different design. (To take this to the extreme, the model could even
 be implemented in Java, with a thin JRuby adapter around it; or, as
 a RESTful web service in any arbitrary language with the adapter
 making calls to it.)
 
 A [MyLifeModel] [7] skeleton file is provided in the
-lib/model directory as a convenient starting point for you.
+lib/life_game_viewer/model directory as a convenient starting point for you.
 You can copy this file into your own working area.
 
 In your program, all you would need to do is to require life_game_viewer
@@ -102,7 +119,7 @@ For example:
 
 ```ruby
 require 'life_game_viewer'
-model = SampleLifeModel.create(5,5) { |r,c| r.even? } # as an example
+model = MyLifeModel.create(5,5) { |r,c| r.even? } # as an example
 LifeGameViewer::Main.view(model)
 ```
 
