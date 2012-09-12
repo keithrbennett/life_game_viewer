@@ -20,7 +20,8 @@ with which developers could:
 
 (Note: The instructions below assume use of a Unix command line
 (e.g. Linux, Mac OS) and rvm. If you're using Windows,
-make the appropriate substitutions, such as '\' for '/', 'ren' for 'mv'.
+make the appropriate substitutions, such as 'jruby' for 'ruby',
+'\' for '/', 'ren' for 'mv', and 'set' for 'export'.
 Also, please see the troubleshooting section below if you have
 problems running the program.)
 
@@ -43,25 +44,24 @@ and above, this is the default setting, but for earlier versions
 you'll have to specify this mode by passing the _--1.9_ option to JRuby.
 Here are three ways to do that:
 
-1) Put the following into your startup
+1) put the following into your startup
 shell's initialization file (e.g. .bashrc or .zshrc):
 
 ```
 export JRUBY_OPTS=--1.9
 ```
 
-2) Execute the above command in your shell
+2) execute the above command in your shell
 
-3) Precede the command with the variable/value setting, e.g.:
+3) precede the command with the variable/value setting, e.g.:
 
 You could do this for just the one command on your command line instead by preceding your JRuby commands with
 the setting, as in:
 
 ```
-JRUBY_OPTS=--1.9 jruby irb  # or
-JRUBY_OPTS=--1.9 jruby   # or
-JRUBY_OPTS=--1.9 jruby irb  # or
-
+JRUBY_OPTS=--1.9 irb               # or
+JRUBY_OPTS=--1.9 jruby             # or
+JRUBY_OPTS=--1.9 life_view_sample
 ```
 
 
@@ -145,7 +145,7 @@ please click the buttons.)
 Data is represented as follows:
 
 * The data is a single string of lines, each line representing a row in the matrix
-* Alive (true) values are represented as asterisks ('*'), and false values are hyphens.
+* Alive (true) values are represented as asterisks ('*'), and false values are hyphens ('-').
 
 For example, the two lines below:
 
@@ -158,7 +158,7 @@ For example, the two lines below:
 lower right cells are alive.  The final row's new line is optional.
 
 When you copy a new game's data into the application, it clears all other data and
-uses that as generation #0.
+uses the new data as generation #0.
 
 The clipboard functionality enables you to edit game data by doing the following:
 
@@ -202,30 +202,22 @@ from which you started the program.
 Troubleshooting
 ---------------
 
-The most common problems will probably be related to the installation and use of JRuby,
-and the unintentional use of MRI Ruby instead of JRuby.
+The most common problems will probably be that you are using MRI ruby
+rather than JRuby, or be in 1.8 rather than 1.9 mode.
 
-To see which version of Ruby you're using, use the '-v' option for ruby or jruby:
-
-```
->ruby -v
-jruby 1.6.7 (ruby-1.9.2-p312) (2012-02-22 3e82bc8) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_33) [darwin-x86_64-java]
-```
-
-Another test is to try to require 'java'.  When you see the error in the last command below,
-you know that you're not using JRuby:
+To see which version of Ruby you're using, use the '-v' option for ruby or jruby, and
+note whether the beginning of the line contains _ruby_ or _jruby_:
 
 ```
 >ruby -v
 jruby 1.6.7 (ruby-1.9.2-p312) (2012-02-22 3e82bc8) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_33) [darwin-x86_64-java]
+```
 
->ruby -e "require 'java'"
+To see which Ruby version mode JRuby is using you can do this:
 
->rvm 1.9
-
->ruby -e "require 'java'"
-/Users/keithb/.rvm/rubies/ruby-1.9.3-p125/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:
-in `require': cannot load such file -- java (LoadError)
+```
+>ruby -e "puts RUBY_VERSION"
+1.9.2
 ```
 
 
