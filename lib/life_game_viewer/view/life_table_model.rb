@@ -32,11 +32,6 @@ class LifeTableModel < AbstractTableModel
     self.inner_model = life_model
   end
 
-  def inner_model=(life_model)
-    @life_model = life_model
-    @generations = Generations.new(life_model)
-  end
-
   def getColumnName(colnum)
     nil
   end
@@ -77,6 +72,14 @@ class LifeTableModel < AbstractTableModel
       handler.call(generations.current_num)
     end
   end
+
+  private
+
+  def inner_model=(life_model)
+    @life_model = life_model
+    @generations = Generations.new(life_model)
+  end
+
 end
 
 
