@@ -39,33 +39,21 @@ class LifeCalculator
     row_below    = row + 1
 
     # In its own row, return the cell to the left and right as possible.
-    unless at_left_edge
-      neighbors << [row, col_to_left]
-    end
-    unless at_right_edge
-      neighbors << [row, col_to_right]
-    end
+    unless at_left_edge;   neighbors << [row, col_to_left]   end
+    unless at_right_edge;  neighbors << [row, col_to_right]  end
 
     # Process the row above
     unless at_top_edge
-      unless at_left_edge
-        neighbors << [row_above, col_to_left]
-      end
       neighbors << [row_above, col]
-      unless at_right_edge
-        neighbors << [row_above, col_to_right]
-      end
+      unless at_left_edge;  neighbors << [row_above, col_to_left]  end
+      unless at_right_edge; neighbors << [row_above, col_to_right] end
     end
 
     # Process the row below
     unless at_bottom_edge
-      unless at_left_edge
-        neighbors << [row_below, col_to_left]
-      end
       neighbors << [row_below, col]
-      unless at_right_edge
-        neighbors << [row_below, col_to_right]
-      end
+      unless at_left_edge;  neighbors << [row_below, col_to_left]  end
+      unless at_right_edge; neighbors << [row_below, col_to_right] end
     end
 
     neighbors
