@@ -45,15 +45,15 @@ class LifeCalculator
     # Process the row above
     unless at_top_edge
       neighbors << [row_above, col]
-      unless at_left_edge;  neighbors << [row_above, col_to_left]  end
-      unless at_right_edge; neighbors << [row_above, col_to_right] end
+      neighbors << [row_above, col_to_left]  unless at_left_edge
+      neighbors << [row_above, col_to_right] unless at_right_edge
     end
 
     # Process the row below
     unless at_bottom_edge
       neighbors << [row_below, col]
-      unless at_left_edge;  neighbors << [row_below, col_to_left]  end
-      unless at_right_edge; neighbors << [row_below, col_to_right] end
+      neighbors << [row_below, col_to_left]  unless at_left_edge
+      neighbors << [row_below, col_to_right] unless at_right_edge
     end
 
     neighbors
