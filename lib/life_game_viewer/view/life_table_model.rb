@@ -3,15 +3,28 @@ require 'java'
 java_import javax.swing.table.AbstractTableModel
 java_import javax.swing.JOptionPane
 
+require 'forwardable'
+
 require_relative 'generations'
 
 # This class is the model used to drive Swing's JTable.
 # It contains a LifeModel to which it delegates most calls.
 class LifeTableModel < AbstractTableModel
 
+  extend Forwardable
+
   attr_accessor :life_model
   attr_reader :generations
 
+  def_delegator :@life_model, :row_count,       :getRowCount
+  def_delegator :@life_model, :column_count,    :getColumnCount
+  def_delegator :@life_model, :number_living
+  def_delegator :@life_model, :alive?,          :getValueAt
+
+  def_delegator :@generations, :at_first_generation?
+  def_delegator :@generations, :at_last_generation?
+
+  def_delegator :@current_num_change_handlers, :<<, :add_current_num_change_handler
 
   def initialize(life_model)
     super()
@@ -19,37 +32,8 @@ class LifeTableModel < AbstractTableModel
     self.inner_model = life_model
   end
 
-  def inner_model=(life_model)
-    @life_model = life_model
-    @generations = Generations.new(life_model)
-  end
-
-  def getRowCount
-    life_model.row_count
-  end
-
-  def getColumnCount
-    life_model.column_count
-  end
-
-  def getValueAt(row, col)
-    life_model.alive?(row, col)
-  end
-
   def getColumnName(colnum)
     nil
-  end
-
-  def at_first_generation?
-    generations.at_first_generation?
-  end
-
-  def at_last_generation?
-    generations.at_last_generation?
-  end
-
-  def number_living
-    life_model.number_living
   end
 
   def go_to_next_generation
@@ -77,10 +61,6 @@ class LifeTableModel < AbstractTableModel
     fire_current_number_changed
   end
 
-  def add_current_num_change_handler(callable)
-    @current_num_change_handlers << callable
-  end
-
   def reset_model(new_model)
     self.inner_model = new_model
     fire_table_structure_changed
@@ -92,6 +72,14 @@ class LifeTableModel < AbstractTableModel
       handler.call(generations.current_num)
     end
   end
+
+  private
+
+  def inner_model=(life_model)
+    @life_model = life_model
+    @generations = Generations.new(life_model)
+  end
+
 end
 
 
