@@ -130,7 +130,7 @@ end
 # added to the Swing JButton class.
 class Button < JButton
   def initialize(action_class, keystroke_text, table_model)
-    action = action_class.send(:new, table_model)
+    action = action_class.new(table_model)
     super(action)
     key = KeyStroke.getKeyStroke(keystroke_text)
     get_input_map(JComponent::WHEN_IN_FOCUSED_WINDOW).put(key, keystroke_text)
