@@ -2,6 +2,7 @@ require_relative '../spec_helper'
 
 require 'model/life_calculator'
 require 'model/life_visualizer'
+require 'model/sample_life_model'
 
 describe LifeCalculator do
 
